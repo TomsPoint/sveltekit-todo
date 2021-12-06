@@ -1,4 +1,4 @@
-# create-svelte
+# Sveltekit Starter
 
 My Starter template for Sveltekit
 
