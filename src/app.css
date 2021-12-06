@@ -1,0 +1,34 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@layer base {
+  #svelte {
+    @apply grid min-h-screen;
+    grid-template-rows: auto 1fr auto;
+  }
+  h1 {
+    @apply mb-3 text-3xl col-span-full;
+  }
+  h2 {
+    @apply mb-2 text-2xl col-span-full;
+  }
+  h3 {
+    @apply text-xl col-span-full;
+  }
+  h4 {
+    @apply col-span-full;
+  }
+
+  main > section {
+    @apply w-full p-4;
+  }
+  pre {
+    @apply absolute top-0 bottom-0 right-0 overflow-scroll text-xs bg-gray-100;
+  }
+}
+@tailwind components;
+@layer base {
+  .btn {
+    @apply py-2 px-1 rounded;
+  }
+}
+@tailwind utilities;
