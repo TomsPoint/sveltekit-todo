@@ -1,5 +1,8 @@
 /* Write your global styles here, in PostCSS syntax */
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   #svelte {
     @apply grid min-h-screen;
@@ -17,18 +20,13 @@
   h4 {
     @apply col-span-full;
   }
+}
 
-  main > section {
-    @apply w-full p-4;
+@layer components {
+  .btn {
+    @apply py-2 px-1 rounded;
   }
   pre {
     @apply absolute top-0 bottom-0 right-0 overflow-scroll text-xs bg-gray-100;
   }
 }
-@tailwind components;
-@layer base {
-  .btn {
-    @apply py-2 px-1 rounded;
-  }
-}
-@tailwind utilities;

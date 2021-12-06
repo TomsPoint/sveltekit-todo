@@ -1,19 +1,9 @@
 # create-svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+My Starter template for Sveltekit
 
-## Creating a project
+## Install community-maintained integrations:
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-npm init svelte@next
-pnpm i
-git init && git add -A && git commit -m "Initial commit" (optional)
-npm run dev -- --open
-```
-
-Install community-maintained integrations:
 https://github.com/svelte-add/svelte-adders
 
 ## Database
@@ -36,4 +26,16 @@ Add to project:
 ```bash
 npx svelte-add@latest tailwindcss
 pnpm add postcss-nested
+```
+
+## GIT
+
+```bash
+git init && git add -A && git commit -m "Initial commit"
+```
+
+## RUN
+
+```bash
+npm run dev
 ```
