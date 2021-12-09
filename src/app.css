@@ -23,8 +23,14 @@
 }
 
 @layer components {
+  section {
+    @apply py-5;
+    & > * {
+      @apply max-w-5xl m-auto;
+    }
+  }
   pre {
-    @apply absolute top-0 bottom-0 right-0 overflow-scroll text-xs bg-gray-100;
+    @apply absolute top-20 bottom-20 right-0 overflow-scroll text-xs bg-gray-100;
   }
   input {
     @apply border rounded-sm px-4 py-2;

@@ -20,7 +20,7 @@
   });
 </script>
 
-<header class="grid place-content-center ">
+<header class="grid p-2 border-b">
   <Navigation />
 </header>
 <main>
@@ -30,3 +30,4 @@
     <slot />
   {/if}
 </main>
+<!-- <pre>{JSON.stringify($session.user, null, 1)}</pre> -->

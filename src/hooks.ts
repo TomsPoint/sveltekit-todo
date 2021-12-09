@@ -24,13 +24,7 @@ export async function handle({
     response = deExpressifyResp(response)
   }
 
-  return {
-    ...response,
-    headers: {
-      ...response.headers,
-      'x-custom-header': 'svelte-starter-kit',
-    },
-  }
+  return response
 }
 
 export async function getSession(request: Request) {

@@ -2,12 +2,13 @@
   import { supabase } from "$lib/db";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import { ROUTE_HOME } from "$lib/constants";
 
   let loading = false;
   let action = "signIn";
   let email, password;
-  //   email = "thomas@lcclcoding.com";
-  //   password = "test-1234";
+  email = "thomas@lcclcoding.com";
+  password = "test-1234";
 
   async function signInOrSignUp() {
     loading = true;
@@ -19,9 +20,12 @@
       console.error(error.message);
     } else {
       if (session) {
-        alert("Signed in successfully");
-        let redirect = $page.query.get("redirect") || !!$page.path ? $page.path : "/";
-        goto(redirect);
+        if ($page.path === "/auth") {
+          let redirect = $page.query.get("redirect") || ROUTE_HOME;
+          goto(redirect);
+        } else {
+          location.reload();
+        }
       } else {
         alert("Registered. Please confirm your email");
       }
@@ -34,7 +38,7 @@
   <title>{action === "signIn" ? "Sign In" : "Sign Up"}</title>
 </svelte:head>
 
-<form on:submit|preventDefault={signInOrSignUp} class="grid gap-2 mx-auto max-w-lg border rounded p-4">
+<form on:submit|preventDefault={signInOrSignUp} class="grid gap-2 mx-auto my-10 max-w-lg border rounded p-4">
   <h2>{action === "signIn" ? "Sign In" : "Sign Up"}</h2>
   <label for="email">Email</label>
   <input name="email" type="email" bind:value={email} placeholder="Email" />
