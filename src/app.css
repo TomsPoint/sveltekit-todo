@@ -32,10 +32,70 @@
   pre {
     @apply absolute top-20 bottom-20 right-0 overflow-scroll text-xs bg-gray-100;
   }
+  .select,
+  select,
   input {
-    @apply border rounded-sm px-4 py-2;
+    @apply text-base border rounded-sm px-4 py-2 relative focus:ring-2 ring-yellow-500 ring-offset-0 focus:outline-none h-10 !bg-none;
   }
-  button {
-    @apply border rounded-sm px-4 py-2 bg-gray-200 hover:bg-gray-100;
+  input[type='checkbox'],
+  input[type='radio'] {
+    @apply focus:ring-0;
+  }
+
+  button,
+  .button {
+    @apply block text-center border border-none rounded-sm px-2 py-1 bg-yellow-200 hover:bg-yellow-300 text-yellow-900;
+  }
+
+  .btn-group {
+    @apply flex gap-2 justify-self-end;
+  }
+  .delete {
+    @apply p-1 leading-none  text-base w-6;
+  }
+  .edit {
+    @apply p-1 leading-none rotate-180 text-base w-6;
+  }
+
+  #__lpform_input_idx_0_icon,
+  #__lpform_first_name_icon {
+    display: none;
+  }
+
+  .data-table {
+    @apply -mt-2 mb-4 text-sm col-span-full;
+
+    .table-header {
+      @apply border-b-2 border-yellow-400 !bg-white;
+    }
+    .data-row {
+      @apply odd:bg-yellow-50 hover:bg-yellow-100;
+    }
+    li {
+      @apply grid gap-4 p-1 odd:bg-yellow-100 hover:bg-yellow-200;
+    }
+    span {
+      @apply text-center;
+    }
+    .left {
+      @apply text-left;
+    }
+
+    .add {
+      @apply min-w-max w-36;
+    }
+  }
+}
+
+.modal {
+  @apply z-50 fixed inset-0 flex justify-center items-center;
+  pointer-events: none;
+  .contents {
+    @apply w-[80%] lg:max-w-lg md:max-w-md rounded p-4 bg-white flex flex-col justify-between;
+    pointer-events: auto;
+  }
+
+  .actions {
+    @apply mt-8 grid grid-cols-2 gap-4;
   }
 }

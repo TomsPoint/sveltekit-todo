@@ -1,4 +1,6 @@
 <script>
+  // @ts-nocheck
+
   import { supabase } from "$lib/db";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -8,7 +10,7 @@
   let action = "signIn";
   let email, password;
   email = "thomas@lcclcoding.com";
-  password = "test-1234";
+  password = "lccl-admin";
 
   async function signInOrSignUp() {
     loading = true;
@@ -20,8 +22,8 @@
       console.error(error.message);
     } else {
       if (session) {
-        if ($page.path === "/auth") {
-          let redirect = $page.query.get("redirect") || ROUTE_HOME;
+        if ($page.url.pathname === "/auth") {
+          let redirect = $page.url.searchParams.get("redirect") || ROUTE_HOME;
           goto(redirect);
         } else {
           location.reload();

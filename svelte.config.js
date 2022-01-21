@@ -13,9 +13,14 @@ const config = {
 
   kit: {
     adapter: adapter(),
-
+    vite: {
+      optimizeDeps: {
+        exclude: ['svelte-modals']
+      }
+    },
     // hydrate the <div id="svelte"> element in src/app.html
     target: "#svelte",
+
   },
 };
 

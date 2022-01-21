@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
-  import { get, post, del, put } from "$lib/api";
+  import { get, post, deleteId, put } from "$lib/api";
 
   export async function load() {
     return {
-      props: { todos: await get("todos") },
+      props: { todos: await get("todo") },
     };
   }
 </script>
@@ -15,19 +15,19 @@
 
   export let todos = [];
 
-  const getTodos = async () => (todos = await get("todos"));
+  const getTodos = async () => (todos = await get("todo"));
 
   const add = async (e) => {
-    await post("todos", { task: e.detail, user_id: $session.user.id });
+    await post("todo", { task: e.detail, user_id: $session.user.id });
     getTodos();
   };
   const remove = async (e) => {
-    await del("todos", e.detail);
+    await deleteId("todo", e.detail.id);
     getTodos();
   };
 
   const update = async (e) => {
-    await put("todos", e.detail);
+    await put("todo", e.detail);
   };
 </script>
 

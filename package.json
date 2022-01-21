@@ -10,23 +10,27 @@
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@supabase/supabase-js": "^1.8.0",
+    "@supabase/supabase-js": "^1.29.1",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
-    "autoprefixer": "^10.3.7",
-    "cssnano": "^5.0.8",
-    "postcss": "^8.3.9",
-    "postcss-load-config": "^3.1.0",
+    "autoprefixer": "^10.4.2",
+    "cssnano": "^5.0.15",
+    "postcss": "^8.4.5",
+    "postcss-load-config": "^3.1.1",
     "postcss-nested": "^5.0.6",
-    "svelte": "^3.44.0",
-    "svelte-check": "^2.2.6",
-    "svelte-preprocess": "^4.9.8",
-    "tailwindcss": "^2.2.16",
+    "svelte": "^3.46.1",
+    "svelte-check": "^2.3.0",
+    "svelte-preprocess": "^4.10.1",
+    "tailwindcss": "^2.2.19",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.4"
   },
   "type": "module",
   "dependencies": {
-    "cookie": "^0.4.1"
+    "cookie": "^0.4.1",
+    "dayjs": "^1.10.7",
+    "lodash": "^4.17.21",
+    "svelte-dnd-action": "^0.9.14",
+    "svelte-modals": "^1.0.4"
   }
 }

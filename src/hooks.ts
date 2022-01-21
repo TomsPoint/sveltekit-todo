@@ -1,4 +1,4 @@
-import type { Request } from '@sveltejs/kit'
+// @ts-nocheck
 import { auth } from '$lib/db'
 import {
   expressifyReq,
@@ -6,29 +6,34 @@ import {
   deExpressifyResp,
 } from '$lib/utils/expressify'
 
-export async function handle({
-  request,
-  resolve,
-}: {
-  request: Request
-  resolve: (request: Request) => Response | Promise<Response>
-}) {
-  request.locals.user =
-    (await (await auth.api.getUserByCookie(expressifyReq(request))).user) || {}
+export async function handle({ event, resolve }) {
+  event.locals.user =
+    (await (await auth.api.getUserByCookie(expressifyReq(event))).user) || {}
 
-  let response = await resolve(request)
+  let response = await resolve(event, {
+    ssr: !event.url.pathname.includes('/edit'),
+  })
 
-  // Set/Reset authentication cookies for Supabase, when user signs in or signs out
-  if (request.method === 'POST' && request.path === '/api/auth.json') {
-    auth.api.setAuthCookie(request, expressifyResp(response))
+  if (
+    event.request.method === 'POST' &&
+    event.url.pathname === '/api/auth.json'
+  ) {
+    console.log(response)
+    console.log(response.headers)
+    auth.api.setAuthCookie(event, expressifyResp(response))
     response = deExpressifyResp(response)
   }
 
-  return response
+  return {
+    ...response,
+    headers: {
+      ...response.headers,
+    },
+  }
 }
 
-export async function getSession(request: Request) {
-  const { user } = request.locals
+export async function getSession(event) {
+  const { user } = event.locals
   return {
     user,
   }
