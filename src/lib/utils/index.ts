@@ -1,5 +1,10 @@
 // @ts-nocheck
 import { goto } from '$app/navigation'
+import dayjs from 'dayjs'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
 
 export const back = (url) => {
   goto(url.substring(0, url.lastIndexOf('/') + 1))
@@ -56,3 +61,10 @@ export const toSlug = (s) =>
     .replace(/--+/g, '-') //collapse multiple dashes
     .replace(/^-+/, '') //trim starting dash
     .replace(/-+$/, '') //trim ending dash
+
+export const isDateBetween = (date, start, end) =>
+  dayjs(start).isSameOrBefore(date) && dayjs(end).isSameOrAfter(date)
+
+export const isDateBefore = (date, end) => dayjs(end).isSameOrAfter(date)
+
+export const isDateAfter = (date, start) => dayjs(start).isSameOrBefore(date)

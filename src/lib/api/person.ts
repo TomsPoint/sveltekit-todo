@@ -36,6 +36,10 @@ export const email = {
     const { data } = await supabase.from('email').delete().match({ id: id })
     return data
   },
+  async deleteMulti(id: []) {
+    const { data } = await supabase.from('email').delete().in('id', id)
+    return data
+  },
 }
 
 export const phone = {
@@ -53,6 +57,13 @@ export const phone = {
   },
   async delete(id) {
     const { data } = await supabase.from('phone').delete().match({ id: id })
+    return data
+  },
+  async deleteMulti(id: []) {
+    console.log('🚀  ~ file: person.ts ~ line 63 ~ id', id)
+    const { data, error } = await supabase.from('email').delete().in('id', id)
+    console.log('🚀  ~ file: person.ts ~ line 65 ~ error', error)
+
     return data
   },
 }

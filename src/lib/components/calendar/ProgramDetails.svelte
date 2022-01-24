@@ -1,12 +1,8 @@
 <script>
   import { openModal } from "svelte-modals";
+  import { isDateBetween } from "$lib/utils";
   import AddClassEnrolmentViaCalendar from "../student/AddClassEnrolmentViaCalendar.svelte";
   import EditClassEnrolmentViaCalendar from "../student/EditClassEnrolmentViaCalendar.svelte";
-  import dayjs from "dayjs";
-  import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-  import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
-  dayjs.extend(isSameOrBefore);
-  dayjs.extend(isSameOrAfter);
 
   export let date;
   export let program;
@@ -15,15 +11,13 @@
 
   $: classrooms = time_slot.classroom;
 
-  $: activeClassrooms = classrooms.filter((classroom) => dayjs(classroom.start_date).isSameOrBefore(date) && dayjs(classroom.end_date).isSameOrAfter(date));
+  $: activeClassrooms = classrooms.filter((classroom) => isDateBetween(date, classroom.start_date, classroom.end_date));
 
   $: classrooms_this_program = classrooms.filter((classroom) => classroom.program_id === program.id);
 
   $: classrooms_this_program_this_date = classrooms_this_program.map((obj) => ({
     ...obj,
-    student_classroom_enrolment: obj.student_classroom_enrolment.filter(
-      (sce) => dayjs(sce.start_date).isSameOrBefore(date) && dayjs(sce.end_date).isSameOrAfter(date)
-    ),
+    student_classroom_enrolment: obj.student_classroom_enrolment.filter((sce) => isDateBetween(date, sce.start_date, sce.end_date)),
   }));
 
   $: offline_classrooms = classrooms_this_program_this_date.filter((classroom) => classroom.mode === "offline");
@@ -38,11 +32,11 @@
   let details = false;
 
   const addStudentToSlot = (classroom_id) => {
-    openModal(AddClassEnrolmentViaCalendar, { program, classroom_id, time_slot, onClose: () => updateData() });
+    openModal(AddClassEnrolmentViaCalendar, { program, classroom_id, time_slot, date, onClose: () => updateData() });
   };
 
   const editStudentToSlot = (classroom_id, enrolment) => {
-    openModal(EditClassEnrolmentViaCalendar, { program, classroom_id, time_slot, enrolment, onClose: () => updateData() });
+    openModal(EditClassEnrolmentViaCalendar, { program, classroom_id, time_slot, enrolment, date, onClose: () => updateData() });
   };
 </script>
 
@@ -94,7 +88,7 @@
                 <span>{enrolment.student.short_name}</span>
                 <button
                   class="rotate-180 bg-{program.label}-200 hover:bg-{program.label}-300 text-{program.label}-900"
-                  on:click={() => editStudentToSlot(classroom.id)}
+                  on:click={() => editStudentToSlot(classroom.id, enrolment)}
                 >
                   ✐
                 </button>

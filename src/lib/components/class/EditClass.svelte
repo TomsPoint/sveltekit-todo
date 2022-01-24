@@ -4,9 +4,9 @@
   import { MODI } from "$lib/constants";
   import { onMount } from "svelte";
   import { closeModal } from "svelte-modals";
-  import Input from "../../ui/Input.svelte";
-  import InputDate from "../../ui/InputDate.svelte";
-  import Radio from "../../ui/Radio.svelte";
+  import Input from "$lib/ui/Input.svelte";
+  import InputDate from "$lib/ui/InputDate.svelte";
+  import Radio from "$lib/ui/Radio.svelte";
 
   // provided by Modals
   export let isOpen;

@@ -3,7 +3,7 @@
 
   // @ts-nocheck
   import { closeModal } from "svelte-modals";
-  import InputDate from "../../ui/InputDate.svelte";
+  import InputDate from "$lib/ui/InputDate.svelte";
 
   // provided by Modals
   export let isOpen;

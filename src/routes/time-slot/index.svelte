@@ -2,7 +2,7 @@
   import * as api from "$lib/api/time_slots";
 
   export async function load() {
-    return { props: { time_slots: await api.time_slots.get() } };
+    return { props: { time_slots: await api.time_slot.get() } };
   }
 </script>
 
@@ -14,7 +14,7 @@
   import TimeSlot from "$lib/components/time_slot/TimeSlot.svelte";
 
   export let time_slots = [];
-  const getTimeSlot = async () => (time_slots = await api.time_slots.get());
+  const getTimeSlot = async () => (time_slots = await api.time_slot.get());
 
   const PROGRAMS = getContext("programs").map((obj) => obj.label);
   let TIMESLOTS = [...new Set(time_slots.map((obj) => obj.time))];

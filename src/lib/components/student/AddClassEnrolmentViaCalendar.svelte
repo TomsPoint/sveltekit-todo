@@ -2,14 +2,16 @@
   // @ts-nocheck
   import { closeModal } from "svelte-modals";
   import { onMount } from "svelte";
-  import InputDate from "../../ui/InputDate.svelte";
-  import Select from "../../ui/Select.svelte";
+  import { isDateBetween } from "$lib/utils";
+  import InputDate from "$lib/ui/InputDate.svelte";
+  import Select from "$lib/ui/Select.svelte";
 
   import * as api from "$lib/api/student_classroom_enrolment";
 
-  let students = [];
-  onMount(async () => (students = await api.students.get()));
-  $: students = students.map((student) => ({ ...student, full_name: student.first_name + " " + student.last_name }));
+  export let date;
+
+  let data = [];
+  onMount(async () => (data = await api.students.get()));
 
   // provided by Modals
   export let isOpen;
@@ -18,12 +20,22 @@
   export let classroom_id;
   export let onClose;
 
-  let data = { classroom_id };
-  $: console.log("🚀  ~ file: AddClassEnrolmentViaCalendar.svelte ~ line 22 ~ data", data);
+  $: students = data
+    .map((person) => ({
+      ...person,
+      full_name: person.first_name + " " + person.last_name,
+      student: {
+        ...person.student,
+        student_weekly_enrolment: person.student.student_weekly_enrolment.filter((el) => isDateBetween(date, el.start_date, el.end_date)),
+      },
+    }))
+    .filter((person) => person.student.student_weekly_enrolment.some((enrolment) => enrolment.program_id === program.id));
+
+  let enrolment = { classroom_id };
   let student = {};
 
   const _save = async () => {
-    await api.enrolment.post(data);
+    await api.enrolment.post(enrolment);
     closeModal();
     onClose();
   };
@@ -39,14 +51,14 @@
       <Select
         items={students}
         bind:selectedItem={student}
-        bind:value={data.student_id}
+        bind:value={enrolment.student_id}
         labelFieldName="full_name"
         label="Student"
         valueFieldName="student_id"
       />
 
-      <InputDate bind:date={data.start_date} label="Start" />
-      <InputDate bind:date={data.end_date} label="End" />
+      <InputDate bind:date={enrolment.start_date} label="Start" />
+      <InputDate bind:date={enrolment.end_date} label="End" />
 
       <div class="actions">
         <button on:click={_cancel}>Cancel</button>

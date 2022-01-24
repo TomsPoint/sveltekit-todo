@@ -13,7 +13,6 @@
 
   let classrooms = [];
   onMount(async () => (classrooms = await api.classrooms.get()));
-  $: console.log("🚀  ~ file: AddClassroomEnrolment.svelte ~ line 15 ~ classrooms", classrooms);
 
   let selectedClassroom;
   let selectedProgram;

@@ -2,7 +2,7 @@
   import * as api from "$lib/api/students";
 
   export async function load({ params }) {
-    return { props: { person: await api.students.getById(params.id) } };
+    return { props: { data: await api.students.getById(params.id) } };
   }
 </script>
 
@@ -18,8 +18,8 @@
   import ClassroomEnrolment from "$lib/components/student/ClassroomEnrolment.svelte";
   import CampEnrolment from "$lib/components/student/CampEnrolment.svelte";
 
-  export let person;
-  let { phone, email, student } = person;
+  export let data;
+  let { phone, email, student, ...person } = data;
 
   const person_id = person?.id || null;
   const student_id = student?.id || null;
@@ -30,16 +30,16 @@
     phone = phone.map((el) => ({ ...el, person_id }));
     email = email.map((el) => ({ ...el, person_id }));
     // what to delete
-    const phoneToDelete = phone.filter((o) => !phone.find((o2) => o.id === o2.id)).map((el) => el.id);
-    const emailToDelete = email.filter((o) => !email.find((o2) => o.id === o2.id)).map((el) => el.id);
-    if (phoneToDelete.length > 0) promises.push(await api.phone.delete(phoneToDelete));
-    if (emailToDelete.length > 0) promises.push(await api.email.delete(emailToDelete));
+    const phoneToDelete = data.phone.filter((o) => !phone.find((o2) => o.id === o2.id)).map((el) => el.id);
+    const emailToDelete = data.email.filter((o) => !email.find((o2) => o.id === o2.id)).map((el) => el.id);
+    if (phoneToDelete.length > 0) phoneToDelete.forEach(async (id) => promises.push(await api.phone.delete(id)));
+    if (emailToDelete.length > 0) emailToDelete.forEach(async (id) => promises.push(await api.email.delete(id)));
     // what to add
     const phoneToAdd = phone.filter((el) => !el.hasOwnProperty("id"));
     const emailToAdd = email.filter((el) => !el.hasOwnProperty("id"));
     // const addressToAdd = address.filter((el) => !el.hasOwnProperty("id"));
-    if (phoneToAdd.length > 0) promises.push(await api.phone.post(phoneToAdd));
-    if (emailToAdd.length > 0) promises.push(await api.email.post(emailToAdd));
+    if (phoneToAdd.length > 0) phoneToAdd.forEach(async (phone) => promises.push(await api.phone.post(phone)));
+    if (emailToAdd.length > 0) emailToAdd.forEach(async (email) => promises.push(await api.email.post(email)));
     // what to update
     const phoneToUpdate = phone.filter((el) => el.hasOwnProperty("id"));
     const emailToUpdate = email.filter((el) => el.hasOwnProperty("id"));
@@ -108,10 +108,4 @@
 </section>
 
 <style lang="postcss">
-  #camp > li {
-    @apply grid-cols-[repeat(1,20ch)repeat(3,10ch)repeat(1,auto)];
-  }
-  #makeup > li {
-    @apply grid-cols-[repeat(1,20ch)repeat(4,10ch)repeat(1,auto)];
-  }
 </style>

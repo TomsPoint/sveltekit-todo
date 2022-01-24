@@ -6,7 +6,9 @@ export const students = {
   async get() {
     const { data } = await supabase
       .from('person')
-      .select('*,phone(*),email(*),teacher(*)')
+      .select(
+        '*,phone(*),email(*),teacher(*),student(*,student_weekly_enrolment(*))',
+      )
       .gt('student_id', 0)
       .order('first_name', { ascending: true })
     return data
