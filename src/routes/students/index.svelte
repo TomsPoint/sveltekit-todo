@@ -11,8 +11,6 @@
   import { page } from "$app/stores";
   import Input from "$lib/ui/Input.svelte";
 
-  import Select from "$lib/ui/Select.svelte";
-
   export let students = [];
 
   let filter = "";
