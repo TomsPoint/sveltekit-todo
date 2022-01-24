@@ -23,7 +23,7 @@
     if (student.email.length === 0) student.email = [{ nr: "", primary: false }];
     return student;
   });
-  $: filteredStudents = filter.length === 0 ? students : students.filter((student) => student.name.includes(filter));
+  $: filteredStudents = filter.length === 0 ? students : students.filter((student) => student.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
 
 <section>
