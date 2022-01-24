@@ -9,18 +9,26 @@
 <script>
   // @ts-nocheck
   import { page } from "$app/stores";
+  import Input from "$lib/ui/Input.svelte";
+
+  import Select from "$lib/ui/Select.svelte";
 
   export let students = [];
 
+  let filter = "";
+
   students = students.map((student) => {
+    student.name = student.first_name + " " + student.last_name;
     if (student.phone.length === 0) student.phone = [{ nr: "", primary: false, whatsapp: false }];
     if (student.email.length === 0) student.email = [{ nr: "", primary: false }];
     return student;
   });
+  $: filteredStudents = filter.length === 0 ? students : students.filter((student) => student.name.includes(filter));
 </script>
 
 <section>
   <h1>Students:</h1>
+  <Input bind:value={filter} label="Filter" />
   <a class="button w-max mb-8" href="{$page.url.pathname}/add">Add Student</a>
   <ul class="data-table">
     <li class="table-header">
@@ -30,7 +38,7 @@
       <span>Birthday</span>
       <span>&nbsp;</span>
     </li>
-    {#each students as { id, first_name, last_name, phone, email, birthday, student_id, teacher_id, billing_contact_id, contact_person_id, lead_id }}
+    {#each filteredStudents as { id, first_name, last_name, phone, email, birthday, student_id, teacher_id, billing_contact_id, contact_person_id, lead_id }}
       <li>
         <span class="left">{first_name} {last_name}</span>
         <span class="left">{email.find((el) => el.primary === true)?.email || email[0]?.email || ""}</span>
