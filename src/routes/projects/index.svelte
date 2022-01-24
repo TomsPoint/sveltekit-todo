@@ -1,9 +1,9 @@
 <script context="module">
-  import { get } from "$lib/api";
+  import * as api from "$lib/api_old";
 
   export async function load() {
     return {
-      props: { projects: await get("project") },
+      props: { projects: await api.projects.all() },
     };
   }
 </script>
@@ -15,7 +15,7 @@
 
   import AddProject from "$lib/components/projects/AddProject.svelte";
   import RemoveProject from "$lib/components/projects/RemoveProject.svelte";
-  import Select from "$lib/components/ui/Select.svelte";
+  import Select from "$lib/ui/Select.svelte";
 
   export let projects = [];
   $: projects_filtered = !!program ? projects.filter((obj) => obj.program_id === program.id) : projects;

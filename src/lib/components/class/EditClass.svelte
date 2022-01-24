@@ -1,12 +1,12 @@
 <script>
   // @ts-nocheck
-  import { get, put } from "$lib/api";
+  import { get, put } from "$lib/api_old";
   import { MODI } from "$lib/constants";
   import { onMount } from "svelte";
   import { closeModal } from "svelte-modals";
-  import Input from "../ui/Input.svelte";
-  import InputDate from "../ui/InputDate.svelte";
-  import Radio from "../ui/Radio.svelte";
+  import Input from "../../ui/Input.svelte";
+  import InputDate from "../../ui/InputDate.svelte";
+  import Radio from "../../ui/Radio.svelte";
 
   // provided by Modals
   export let isOpen;

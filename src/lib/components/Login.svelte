@@ -23,11 +23,11 @@
     } else {
       if (session) {
         if ($page.url.pathname === "/auth") {
-          let redirect = $page.url.searchParams.get("redirect") || ROUTE_HOME;
-          goto(redirect);
+          goto(ROUTE_HOME);
         } else {
-          location.reload();
+          goto($page.url.pathname);
         }
+        location.reload();
       } else {
         alert("Registered. Please confirm your email");
       }

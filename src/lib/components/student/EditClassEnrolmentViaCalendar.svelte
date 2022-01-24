@@ -1,14 +1,15 @@
 <script>
   // @ts-nocheck
   import { closeModal } from "svelte-modals";
-  import { put } from "$lib/api";
-  import InputDate from "../ui/InputDate.svelte";
+  import { put } from "$lib/api_old";
+  import InputDate from "../../ui/InputDate.svelte";
 
   export let isOpen;
   export let program;
   export let time_slot;
   export let classroom_id = "";
   export let enrolment;
+  export let onClose;
 
   let data = {
     id: enrolment.id,
@@ -21,7 +22,7 @@
   const _save = async () => {
     await put("student_classroom_enrolment", data);
     closeModal();
-    // location.reload();
+    onClose();
   };
 
   const _cancel = () => closeModal();

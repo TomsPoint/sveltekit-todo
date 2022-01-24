@@ -1,5 +1,85 @@
 import { supabase } from '$lib/db'
 
+export const projects = {
+  async all() {
+    const { data } = await supabase.from('project').select('*')
+    return data
+  },
+}
+export const ideas = {
+  async get() {
+    const { data } = await supabase.from('idea').select('*')
+    return data
+  },
+  async post(payload) {
+    const { data } = await supabase.from('idea').insert(payload)
+    return data
+  },
+  async update(payload) {
+    const { data } = await supabase.from('idea').upsert(payload)
+    return data
+  },
+  async delete(id) {
+    const { data } = await supabase.from('idea').delete().match({ id: id })
+    return data
+  },
+}
+export const todos = {
+  async get() {
+    const { data } = await supabase.from('todo').select('*')
+    return data
+  },
+  async post(payload) {
+    const { data } = await supabase.from('todo').insert(payload)
+    return data
+  },
+  async update(payload) {
+    const { data } = await supabase.from('todo').upsert(payload)
+    return data
+  },
+  async delete(id) {
+    const { data } = await supabase.from('todo').delete().match({ id: id })
+    return data
+  },
+}
+export const time_slots = {
+  async get() {
+    const { data } = await supabase.from('time_slot').select('*')
+    return data
+  },
+  async post(payload) {
+    const { data } = await supabase.from('time_slot').insert(payload)
+    return data
+  },
+  async update(payload) {
+    const { data } = await supabase.from('time_slot').upsert(payload)
+    return data
+  },
+  async delete(id) {
+    const { data } = await supabase.from('time_slot').delete().match({ id: id })
+    return data
+  },
+}
+export const students = {
+  async get() {
+    const { data } = await supabase
+      .from('person')
+      .select('*,phone(*),email(*),address(*),teacher(*)')
+    return data
+  },
+  // async post(payload) {
+  //   const { data } = await supabase.from('time_slot').insert(payload)
+  //   return data
+  // },
+  // async update(payload) {
+  //   const { data } = await supabase.from('time_slot').upsert(payload)
+  //   return data
+  // },
+  // async delete(id) {
+  //   const { data } = await supabase.from('time_slot').delete().match({ id: id })
+  //   return data
+  // },
+}
 // get functions
 export async function get(
   table,

@@ -1,15 +1,15 @@
 <script>
-  // @ts-nocheck
   import { closeModal } from "svelte-modals";
-  import { put } from "$lib/api";
+  import InputDate from "../../ui/InputDate.svelte";
+  import * as api from "$lib/api/student_classroom_enrolment";
 
   // provided by Modals
   export let isOpen;
-
-  let data = {};
+  export let item;
 
   const _save = async () => {
-    await put("tablename", data);
+    delete item.classroom;
+    await api.enrolment.update(item);
     closeModal();
     location.reload();
   };
@@ -20,7 +20,9 @@
 {#if isOpen}
   <div role="dialog" class="modal">
     <div class="contents">
-      <h2>HEADLINE</h2>
+      <h2>Edit Class Enrolment</h2>
+      <InputDate bind:date={item.start_date} label="Start" />
+      <InputDate bind:date={item.end_date} label="End" />
 
       <div class="actions">
         <button on:click={_cancel}>Cancel</button>

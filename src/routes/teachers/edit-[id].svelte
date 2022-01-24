@@ -1,9 +1,10 @@
 <script context="module">
-  import { post, put, getFiltered, del, deleteFiltered } from "$lib/api";
+  import { post, put, del, deleteFiltered } from "$lib/api_old";
+
+  import * as api from "$lib/api/teacher";
 
   export async function load({ params }) {
-    let data = await getFiltered("person", "*,phone(*),email(*),address(*),teacher(*,classroom(*,time_slot(*)))", { column: "id", value: params.id });
-    return { props: { data: data[0] } };
+    return { props: { data: await api.teachers.getById(params.id) } };
   }
 </script>
 
@@ -15,12 +16,12 @@
   import { back } from "$lib/utils";
   import { addressObj, emailObj, phoneObj, teacherObj } from "$lib/objects";
   import { openModal } from "svelte-modals";
-  import Input from "$lib/components/ui/Input.svelte";
-  import Radio from "$lib/components/ui/Radio.svelte";
-  import Select from "$lib/components/ui/Select.svelte";
-  import InputPhones from "$lib/components/ui/InputPhones.svelte";
-  import InputEmails from "$lib/components/ui/InputEmails.svelte";
-  import InputAddress from "$lib/components/ui/InputAddress.svelte";
+  import Input from "$lib/ui/Input.svelte";
+  import Radio from "$lib/ui/Radio.svelte";
+  import Select from "$lib/ui/Select.svelte";
+  import InputPhones from "$lib/ui/InputPhones.svelte";
+  import InputEmails from "$lib/ui/InputEmails.svelte";
+  import InputAddress from "$lib/ui/InputAddress.svelte";
   import dayjs from "dayjs";
   import AddClass from "$lib/components/class/AddClass.svelte";
   import EditClass from "$lib/components/class/EditClass.svelte";
@@ -44,16 +45,18 @@
     const phoneToDelete = data.phone.filter((o) => !phone.find((o2) => o.id === o2.id)).map((el) => el.id);
     const emailToDelete = data.email.filter((o) => !email.find((o2) => o.id === o2.id)).map((el) => el.id);
     const addressToDelete = data.address.filter((o) => !address.find((o2) => o.id === o2.id)).map((el) => el.id);
-    if (phoneToDelete.length > 0) promises.push(await deleteFiltered("phone", { column: "id", value: phoneToDelete }));
-    if (emailToDelete.length > 0) promises.push(await deleteFiltered("email", { column: "id", value: emailToDelete }));
+    if (phoneToDelete.length > 0) promises.push(await api.phone.delete(phoneToDelete));
+    if (emailToDelete.length > 0) promises.push(await api.email.delete(emailToDelete));
     if (addressToDelete.length > 0) promises.push(await deleteFiltered("address", { column: "id", value: addressToDelete }));
+
     // what to add
     const phoneToAdd = phone.filter((el) => !el.hasOwnProperty("id"));
     const emailToAdd = email.filter((el) => !el.hasOwnProperty("id"));
     const addressToAdd = address.filter((el) => !el.hasOwnProperty("id"));
-    if (phoneToAdd.length > 0) promises.push(await post("phone", phoneToAdd));
-    if (emailToAdd.length > 0) promises.push(await post("email", emailToAdd));
-    if (addressToAdd.length > 0) promises.push(await post("address", addressToAdd));
+    if (phoneToAdd.length > 0) promises.push(await api.phone.post(phoneToAdd));
+    if (emailToAdd.length > 0) promises.push(await api.email.post(emailToAdd));
+    if (addressToAdd.length > 0) promises.push(await api.address.post(addressToAdd));
+
     // what to update
     const phoneToUpdate = phone.filter((el) => el.hasOwnProperty("id"));
     const emailToUpdate = email.filter((el) => el.hasOwnProperty("id"));
@@ -63,6 +66,7 @@
     if (addressToUpdate.length > 0) promises.push(await put("address", addressToUpdate));
 
     promises.push(await put("person", person));
+    delete teacher.classroom;
     promises.push(await put("teacher", teacher));
 
     Promise.all(promises);
@@ -86,15 +90,17 @@
   };
 
   function openAddClass() {
-    openModal(AddClass, { programs: selectedPrograms, teacher });
+    openModal(AddClass, { programs: selectedPrograms, teacher, updateData });
   }
   function openEditClass(item) {
-    openModal(EditClass, { programs: selectedPrograms, item });
+    openModal(EditClass, { programs: selectedPrograms, item, updateData });
   }
   async function deleteClassroom(id) {
     await deleteFiltered("classroom", { column: "id", filter: "eq", value: id });
     location.reload();
   }
+
+  const updateData = () => {};
 </script>
 
 <section>

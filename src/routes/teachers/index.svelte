@@ -1,5 +1,5 @@
 <script context="module">
-  import { getFiltered } from "$lib/api";
+  import { getFiltered } from "$lib/api_old";
 
   export async function load() {
     return {

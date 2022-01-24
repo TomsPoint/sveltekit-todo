@@ -1,5 +1,5 @@
 <script context="module">
-  import { get } from "$lib/api";
+  import { get } from "$lib/api_old";
 
   export async function load() {
     let [programs, classrooms] = await Promise.all([await get("program"), await get("classroom")]);
@@ -13,12 +13,10 @@
 <script>
   // @ts-nocheck
 
+  import { user } from "$lib/db";
   import { setContext } from "svelte";
-  import { goto } from "$app/navigation";
-  import { page, session } from "$app/stores";
+  import { page } from "$app/stores";
   import { PROTECTED_ROUTES } from "$lib/constants";
-  import { supabase } from "$lib/db";
-  import { setAuthCookie, unsetAuthCookie } from "$lib/utils/session";
   import { Modals, closeModal } from "svelte-modals";
   import { fade } from "svelte/transition";
   import "../app.css";
@@ -29,17 +27,6 @@
   export let classrooms;
   setContext("programs", programs);
   setContext("classrooms", classrooms);
-
-  supabase.auth.onAuthStateChange(async (event, _session) => {
-    if (event !== "SIGNED_OUT") {
-      $session = { user: _session.user };
-      await setAuthCookie(_session);
-    } else {
-      $session = { user: {} };
-      await unsetAuthCookie();
-      goto("/auth");
-    }
-  });
 </script>
 
 <Modals>
@@ -49,7 +36,7 @@
   <Navigation />
 </header>
 <main>
-  {#if PROTECTED_ROUTES.includes($page.url.pathname) && $session.user.aud !== "authenticated"}
+  {#if PROTECTED_ROUTES.includes($page.url.pathname) && !$user}
     <Login />
   {:else}
     <slot />

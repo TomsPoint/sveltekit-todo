@@ -11,6 +11,7 @@
   export let date;
   export let program;
   export let time_slot;
+  export let updateData;
 
   $: classrooms = time_slot.classroom;
 
@@ -37,11 +38,11 @@
   let details = false;
 
   const addStudentToSlot = (classroom_id) => {
-    openModal(AddClassEnrolmentViaCalendar, { program, classroom_id, time_slot });
+    openModal(AddClassEnrolmentViaCalendar, { program, classroom_id, time_slot, onClose: () => updateData() });
   };
 
   const editStudentToSlot = (classroom_id, enrolment) => {
-    openModal(EditClassEnrolmentViaCalendar, { program, classroom_id, time_slot, enrolment });
+    openModal(EditClassEnrolmentViaCalendar, { program, classroom_id, time_slot, enrolment, onClose: () => updateData() });
   };
 </script>
 

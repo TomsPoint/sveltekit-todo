@@ -1,13 +1,12 @@
 <script>
-  // @ts-nocheck
   import { page } from "$app/stores";
-  import { post, put } from "$lib/api";
+  import { post, put } from "$lib/api_old";
   import { GENDER, WEEKLY_STATUS } from "$lib/constants";
   import { back } from "$lib/utils";
-  import Input from "$lib/components/ui/Input.svelte";
-  import Radio from "$lib/components/ui/Radio.svelte";
-  import InputPhones from "$lib/components/ui/InputPhones.svelte";
-  import InputEmails from "$lib/components/ui/InputEmails.svelte";
+  import Input from "$lib/ui/Input.svelte";
+  import Radio from "$lib/ui/Radio.svelte";
+  import InputPhones from "$lib/ui/InputPhones.svelte";
+  import InputEmails from "$lib/ui/InputEmails.svelte";
   import { emailObj, personObj, phoneObj, studentObj } from "$lib/objects";
 
   let person = personObj;

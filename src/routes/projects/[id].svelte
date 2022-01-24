@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { getFiltered, put } from "$lib/api";
+  import { getFiltered, put } from "$lib/api_old";
 
   export async function load({ params }) {
     return {
@@ -16,7 +16,7 @@
   const curricula = getContext("curricula");
 
   import Tree from "$lib/components/treeview/Tree.svelte";
-  import Select from "$lib/components/ui/Select.svelte";
+  import Select from "$lib/ui/Select.svelte";
   import { uuid } from "$lib/utils";
 
   export let project;

@@ -2,10 +2,11 @@
   // @ts-nocheck
   import { getContext } from "svelte";
   import { closeModal } from "svelte-modals";
-  import { post } from "$lib/api";
-  import Input from "../ui/Input.svelte";
-  import InputDate from "../ui/InputDate.svelte";
-  import Select from "../ui/Select.svelte";
+  import Input from "../../ui/Input.svelte";
+  import InputDate from "../../ui/InputDate.svelte";
+  import Select from "../../ui/Select.svelte";
+
+  import * as api from "$lib/api/student_weekly_enrolment";
 
   // provided by Modals
   export let isOpen;
@@ -22,7 +23,7 @@
   };
 
   const _save = async () => {
-    await post("student_weekly_enrolment", item);
+    await api.enrolment.post(item);
     closeModal();
     location.reload();
   };

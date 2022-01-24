@@ -1,5 +1,5 @@
 <script>
-  import { del } from "$lib/api";
+  import { del } from "$lib/api_old";
   import { getContext } from "svelte";
   const { close } = getContext("simple-modal");
 

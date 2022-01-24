@@ -2,7 +2,7 @@
   // @ts-nocheck
 
   import { getContext } from "svelte";
-  import { put } from "$lib/api";
+  import { put } from "$lib/api_old";
   import SelectStartEnd from "$lib/components/date/SelectStartEnd.svelte";
 
   const { close } = getContext("simple-modal");

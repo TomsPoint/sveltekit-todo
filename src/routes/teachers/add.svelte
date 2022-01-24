@@ -2,16 +2,16 @@
   // @ts-nocheck
   import { page } from "$app/stores";
   import { getContext } from "svelte";
-  import { post, put } from "$lib/api";
+  import { post, put } from "$lib/api_old";
   import { GENDER } from "$lib/constants";
   import { back } from "$lib/utils";
   import { addressObj, emailObj, personObj, phoneObj, teacherObj } from "$lib/objects";
-  import Input from "$lib/components/ui/Input.svelte";
-  import Radio from "$lib/components/ui/Radio.svelte";
-  import Select from "$lib/components/ui/Select.svelte";
-  import InputPhones from "$lib/components/ui/InputPhones.svelte";
-  import InputEmails from "$lib/components/ui/InputEmails.svelte";
-  import InputAddress from "$lib/components/ui/InputAddress.svelte";
+  import Input from "$lib/ui/Input.svelte";
+  import Radio from "$lib/ui/Radio.svelte";
+  import Select from "$lib/ui/Select.svelte";
+  import InputPhones from "$lib/ui/InputPhones.svelte";
+  import InputEmails from "$lib/ui/InputEmails.svelte";
+  import InputAddress from "$lib/ui/InputAddress.svelte";
 
   const PROGRAM = getContext("programs");
 

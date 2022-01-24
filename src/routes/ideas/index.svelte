@@ -1,33 +1,31 @@
 <script lang="ts" context="module">
-  import { get, post, deleteId, put } from "$lib/api";
+  import * as api from "$lib/api/ideas";
 
   export async function load() {
-    return {
-      props: { ideas: await get("idea") },
-    };
+    return { props: { ideas: await api.ideas.get() } };
   }
 </script>
 
 <script>
-  import { session } from "$app/stores";
+  import { user } from "$lib/db";
   import AddIdea from "$lib/components/ideas/AddIdea.svelte";
   import Idea from "$lib/components/ideas/Idea.svelte";
 
   export let ideas = [];
 
-  const getIdeas = async () => (ideas = await get("idea"));
+  const getIdeas = async () => (ideas = await api.ideas.get());
 
   const add = async (e) => {
-    await post("idea", { task: e.detail, user_id: $session.user.id });
+    await api.ideas.post({ task: e.detail, user_id: $user.id });
     getIdeas();
   };
   const remove = async (e) => {
-    await deleteId("idea", e.detail.id);
+    await api.ideas.delete(e.detail.id);
     getIdeas();
   };
 
   const update = async (e) => {
-    await put("idea", e.detail);
+    await api.ideas.update(e.detail);
   };
 </script>
 

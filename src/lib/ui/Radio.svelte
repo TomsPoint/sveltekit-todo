@@ -6,8 +6,8 @@
   export let value = undefined;
   export let label = "";
 
-  export let labelFieldName;
-  export let valueFieldName;
+  export let labelFieldName = "";
+  export let valueFieldName = "";
 </script>
 
 <div class="grid gap-0 mb-2">

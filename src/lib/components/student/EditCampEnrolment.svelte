@@ -1,5 +1,5 @@
 <script>
-  import { put } from "$lib/api";
+  import { put } from "$lib/api_old";
 
   // @ts-nocheck
   import { closeModal } from "svelte-modals";

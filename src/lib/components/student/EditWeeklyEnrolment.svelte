@@ -1,9 +1,9 @@
 <script>
-  import { put } from "$lib/api";
+  import { put } from "$lib/api_old";
 
   // @ts-nocheck
   import { closeModal } from "svelte-modals";
-  import InputDate from "../ui/InputDate.svelte";
+  import InputDate from "../../ui/InputDate.svelte";
 
   // provided by Modals
   export let isOpen;

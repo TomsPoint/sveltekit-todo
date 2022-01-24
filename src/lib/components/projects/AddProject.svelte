@@ -1,9 +1,9 @@
 <script>
   // @ts-nocheck
   import { closeModal } from "svelte-modals";
-  import { put } from "$lib/api";
-  import Input from "../ui/Input.svelte";
-  import Radio from "../ui/Radio.svelte";
+  import { put } from "$lib/api_old";
+  import Input from "../../ui/Input.svelte";
+  import Radio from "../../ui/Radio.svelte";
 
   // provided by Modals
   export let isOpen;

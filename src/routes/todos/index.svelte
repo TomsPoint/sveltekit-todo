@@ -1,33 +1,31 @@
 <script lang="ts" context="module">
-  import { get, post, deleteId, put } from "$lib/api";
+  import * as api from "$lib/api/todos";
 
   export async function load() {
-    return {
-      props: { todos: await get("todo") },
-    };
+    return { props: { todos: await api.todos.get() } };
   }
 </script>
 
 <script>
-  import { session } from "$app/stores";
+  import { user } from "$lib/db";
   import AddTodo from "$lib/components/todos/AddTodo.svelte";
   import Todo from "$lib/components/todos/Todo.svelte";
 
   export let todos = [];
 
-  const getTodos = async () => (todos = await get("todo"));
+  const getTodos = async () => (todos = await api.todos.get());
 
   const add = async (e) => {
-    await post("todo", { task: e.detail, user_id: $session.user.id });
+    await api.todos.post({ task: e.detail, user_id: $user.id });
     getTodos();
   };
   const remove = async (e) => {
-    await deleteId("todo", e.detail.id);
+    await api.todos.delete(e.detail.id);
     getTodos();
   };
 
   const update = async (e) => {
-    await put("todo", e.detail);
+    await api.todos.update(e.detail);
   };
 </script>
 

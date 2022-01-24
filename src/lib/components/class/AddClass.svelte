@@ -1,13 +1,15 @@
 <script>
   // @ts-nocheck
-  import { get, post } from "$lib/api";
+
+  import * as api from "$lib/api/classrooms";
+  import { get, post } from "$lib/api_old";
   import { MODI } from "$lib/constants";
   import { onMount } from "svelte";
   import { closeModal } from "svelte-modals";
-  import Input from "../ui/Input.svelte";
-  import InputDate from "../ui/InputDate.svelte";
-  import Radio from "../ui/Radio.svelte";
-  import Select from "../ui/Select.svelte";
+  import Input from "../../ui/Input.svelte";
+  import InputDate from "../../ui/InputDate.svelte";
+  import Radio from "../../ui/Radio.svelte";
+  import Select from "../../ui/Select.svelte";
 
   // provided by Modals
   export let isOpen;
@@ -27,16 +29,15 @@
     capacity: 6,
     start_date: new Date(),
     end_date: new Date("December 31, 2025 23:59:59"),
-    // end_date: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 365 * 2),
   };
 
-  onMount(async () => (time_slots = await get("time_slot")));
+  onMount(async () => (time_slots = await api.classrooms.getTimeSlot()));
 
   const setMaxCapacity = () => (newClass.capacity = newClass.mode === "offline" ? 6 : 4);
   const clearTimeslot = () => (time_slot = {});
 
   const saveClass = async () => {
-    const res = await post("classroom", newClass);
+    const res = await api.classrooms.post(newClass);
     closeModal();
     location.reload();
   };

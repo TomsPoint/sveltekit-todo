@@ -1,5 +1,5 @@
 <script context="module">
-  import { post, put, getFiltered, del, deleteFiltered } from "$lib/api";
+  import { post, put, getFiltered, del, deleteFiltered } from "$lib/api_old";
 
   export async function load({ params }) {
     let data = await getFiltered("person", "*,phone(*),email(*),address(*),student(*),teacher(*,classroom(*,time_slot(*)))", {
@@ -19,12 +19,12 @@
   import { back } from "$lib/utils";
   import { isEqual } from "lodash";
   import { openModal } from "svelte-modals";
-  import Input from "$lib/components/ui/Input.svelte";
-  import Radio from "$lib/components/ui/Radio.svelte";
-  import Select from "$lib/components/ui/Select.svelte";
-  import InputPhones from "$lib/components/ui/InputPhones.svelte";
-  import InputEmails from "$lib/components/ui/InputEmails.svelte";
-  import InputAddress from "$lib/components/ui/InputAddress.svelte";
+  import Input from "$lib/ui/Input.svelte";
+  import Radio from "$lib/ui/Radio.svelte";
+  import Select from "$lib/ui/Select.svelte";
+  import InputPhones from "$lib/ui/InputPhones.svelte";
+  import InputEmails from "$lib/ui/InputEmails.svelte";
+  import InputAddress from "$lib/ui/InputAddress.svelte";
   import dayjs from "dayjs";
   import AddClass from "$lib/components/class/AddClass.svelte";
   import EditClass from "$lib/components/class/EditClass.svelte";

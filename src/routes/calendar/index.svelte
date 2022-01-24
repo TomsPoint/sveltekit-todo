@@ -1,19 +1,15 @@
 <script context="module">
-  import { get } from "$lib/api";
-  import { WEEKDAY, WEEKDAYS, WEEKEND } from "$lib/constants";
+  import * as api from "$lib/api/time_slots";
 
   export async function load() {
-    let time_slot = await get("time_slot", "*,classroom(*,student_classroom_enrolment(*,student(*,person(*))),time_slot(*),teacher(person(*)))");
-    return {
-      props: { time_slot },
-    };
+    return { props: { time_slot: await api.time_slot.get() } };
   }
 </script>
 
 <script>
   // @ts-nocheck
   import { getContext } from "svelte";
-  import { DATEFORMAT } from "$lib/constants";
+  import { WEEKDAY, WEEKDAYS, WEEKEND, DATEFORMAT } from "$lib/constants";
   import DateSwitcher from "$lib/components/date/DateSwitcher.svelte";
   import Program from "$lib/components/calendar/Program.svelte";
   import dayjs from "dayjs";
@@ -23,9 +19,13 @@
   let weekdays = WEEKDAYS; // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   let programs = PROGRAMS;
 
-  export let time_slot;
-  // $: filtered_time_slot = programs.some((item) => el.programs.includes(item))
-  // $: console.log("🚀  ~ file: index.svelte ~ line 28 ~ filtered_time_slot", filtered_time_slot);
+  export let time_slot = [];
+  let time_slots = time_slot;
+
+  const updateData = async () => {
+    time_slots = await api.time_slot.get();
+  };
+
   let start;
 </script>
 
@@ -70,10 +70,10 @@
             <li class=" font-bold uppercase">
               {weekday} - {date.format(DATEFORMAT)}
             </li>
-            {#each time_slot.filter((slot) => slot.weekday === weekday) as time_slot (time_slot.id)}
+            {#each time_slots.filter((slot) => slot.weekday === weekday) as time_slot (time_slot.id)}
               <li class="border p-1 flex gap-4 min-h-[2rem] mb-1">
                 <span class="w-[10ch]">{time_slot.time}</span>
-                <Program bind:programs date={date.format()} {time_slot} />
+                <Program bind:programs date={date.format()} {time_slot} {updateData} />
                 <span />
               </li>
             {/each}

@@ -1,5 +1,5 @@
 <script context="module">
-  import { get } from "$lib/api";
+  import { get } from "$lib/api_old";
 
   export async function load() {
     return {

@@ -2,16 +2,18 @@
   // @ts-nocheck
   import { getContext, onMount } from "svelte";
   import { closeModal } from "svelte-modals";
-  import { get, post } from "$lib/api";
-  import InputDate from "../ui/InputDate.svelte";
-  import Select from "../ui/Select.svelte";
+  import InputDate from "$lib/ui/InputDate.svelte";
+  import Select from "$lib/ui/Select.svelte";
+
+  import * as api from "$lib/api/student_classroom_enrolment";
 
   // provided by Modals
   export let isOpen;
   export let student;
 
   let classrooms = [];
-  onMount(async () => (classrooms = await get("classroom", "*,student_classroom_enrolment(*),time_slot(*),program(*),teacher(*,person(*))")));
+  onMount(async () => (classrooms = await api.classrooms.get()));
+  $: console.log("🚀  ~ file: AddClassroomEnrolment.svelte ~ line 15 ~ classrooms", classrooms);
 
   let selectedClassroom;
   let selectedProgram;
@@ -21,7 +23,6 @@
   $: filteredPrograms = programs.filter((el) => programIds.includes(el.id));
 
   $: classrooms = classrooms.map((el) => {
-    console.log("🚀  ~ file: AddClassEnrolment.svelte ~ line 25 ~ el", el);
     return {
       ...el,
       label: `${el.time_slot.label} - ${el.mode} - ${el.teacher.person[0].first_name} - (${el.student_classroom_enrolment.length}/${el.capacity})`,
@@ -39,7 +40,7 @@
   const clearClassrooms = () => (selectedClassroom = {});
 
   const _save = async () => {
-    await post("student_classroom_enrolment", item);
+    await api.enrolment.post(item);
     closeModal();
     location.reload();
   };

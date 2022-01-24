@@ -4,7 +4,7 @@
   import { createEventDispatcher, getContext } from "svelte";
   import { TIMESLOTS, WEEKDAYS } from "$lib/constants";
   // import Select from "simple-svelte-autocomplete";
-  import Select from "$lib/components/ui/Select.svelte";
+  import Select from "$lib/ui/Select.svelte";
 
   const dispatch = createEventDispatcher();
 

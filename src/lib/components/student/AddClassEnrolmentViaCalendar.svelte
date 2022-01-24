@@ -1,20 +1,14 @@
 <script>
   // @ts-nocheck
   import { closeModal } from "svelte-modals";
-  import { getFiltered, post } from "$lib/api";
   import { onMount } from "svelte";
-  import InputDate from "../ui/InputDate.svelte";
-  import Select from "../ui/Select.svelte";
+  import InputDate from "../../ui/InputDate.svelte";
+  import Select from "../../ui/Select.svelte";
+
+  import * as api from "$lib/api/student_classroom_enrolment";
 
   let students = [];
-  onMount(async () => {
-    students = await getFiltered("person", "*,student(*,student_weekly_enrolment(*),student_classroom_enrolment(*))", {
-      column: "student_id",
-      filter: "gt",
-      value: 0,
-      sort: "first_name",
-    });
-  });
+  onMount(async () => (students = await api.students.get()));
   $: students = students.map((student) => ({ ...student, full_name: student.first_name + " " + student.last_name }));
 
   // provided by Modals
@@ -22,14 +16,16 @@
   export let program;
   export let time_slot;
   export let classroom_id;
+  export let onClose;
 
   let data = { classroom_id };
+  $: console.log("🚀  ~ file: AddClassEnrolmentViaCalendar.svelte ~ line 22 ~ data", data);
   let student = {};
 
   const _save = async () => {
-    await post("student_classroom_enrolment", data);
+    await api.enrolment.post(data);
     closeModal();
-    location.reload();
+    onClose();
   };
 
   const _cancel = () => closeModal();

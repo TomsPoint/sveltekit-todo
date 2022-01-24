@@ -2,9 +2,9 @@
   // @ts-nocheck
 
   import { goto } from "$app/navigation";
-  import { page, session } from "$app/stores";
+  import { page } from "$app/stores";
   import { ROUTES, PROTECTED_ROUTES } from "$lib/constants";
-  import { supabase } from "$lib/db";
+  import { supabase, user } from "$lib/db";
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -17,12 +17,12 @@
     {#each ROUTES as { route, label }}
       {#if !PROTECTED_ROUTES.includes(route)}
         <li class="hover:text-yellow-400 p-2" class:active={$page.url.pathname === route}><a sveltekit:prefetch href={route}>{label}</a></li>
-      {:else if PROTECTED_ROUTES.includes(route) && $session?.user?.aud === "authenticated"}
+      {:else if PROTECTED_ROUTES.includes(route) && $user}
         <li class="hover:text-yellow-400 p-2" class:active={$page.url.pathname === route}><a sveltekit:prefetch href={route}>{label}</a></li>
       {/if}
     {/each}
   </ul>
-  {#if $session?.user?.aud === "authenticated"}
+  {#if $user}
     <span class="inline-block p-2 cursor-pointer" on:click={signOut}>Sign Out</span>
   {:else}
     <a class="inline-block p-2 cursor-pointer" sveltekit:prefetch href="/auth"> Sign In </a>

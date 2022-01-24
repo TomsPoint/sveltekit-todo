@@ -1,12 +1,8 @@
 <script lang="ts" context="module">
-  import { get, getFiltered, post, put, deleteId } from "$lib/api";
+  import * as api from "$lib/api/time_slots";
 
   export async function load() {
-    return {
-      props: {
-        time_slots: await get("time_slot"),
-      },
-    };
+    return { props: { time_slots: await api.time_slots.get() } };
   }
 </script>
 
@@ -18,7 +14,7 @@
   import TimeSlot from "$lib/components/time_slot/TimeSlot.svelte";
 
   export let time_slots = [];
-  const getTimeSlot = async () => (time_slots = await get("time_slot"));
+  const getTimeSlot = async () => (time_slots = await api.time_slots.get());
 
   const PROGRAMS = getContext("programs").map((obj) => obj.label);
   let TIMESLOTS = [...new Set(time_slots.map((obj) => obj.time))];
@@ -37,16 +33,16 @@
   };
 
   const add = async (e) => {
-    await post("time_slot", e.detail);
+    await api.time_slots.post(e.detail);
     getTimeSlot();
   };
   const remove = async (e) => {
-    await deleteId("time_slot", e.detail.id);
+    await api.time_slots.delete(e.detail.id);
     getTimeSlot();
   };
 
   const update = async (e) => {
-    await put("time_slot", e.detail);
+    await api.time_slots.update(e.detail);
   };
 </script>
 
