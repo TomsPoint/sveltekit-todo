@@ -1,8 +1,10 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
+  import * as api from "$lib/api/teachers";
+
   import { page } from "$app/stores";
   import { getContext } from "svelte";
-  import { post, put } from "$lib/api_old";
   import { GENDER } from "$lib/constants";
   import { back } from "$lib/utils";
   import { addressObj, emailObj, personObj, phoneObj, teacherObj } from "$lib/objects";
@@ -13,7 +15,7 @@
   import InputEmails from "$lib/ui/InputEmails.svelte";
   import InputAddress from "$lib/ui/InputAddress.svelte";
 
-  const PROGRAM = getContext("programs");
+  const PROGRAM: Program[] = getContext("programs");
 
   let person = personObj;
   let email = [emailObj];
@@ -22,26 +24,26 @@
   let teacher = teacherObj;
 
   const add = async () => {
-    const res_person = await post("person", person);
-    const res_teacher = await post("teacher", teacher);
+    const res_person = await api.person.post(person);
+    const res_teacher = await api.teachers.post(teacher);
     const person_id = res_person[0].id;
     const teacher_id = res_teacher[0].id;
     const promises = [];
 
     if (phone.length > 0) {
       phone = phone.map((el) => ({ ...el, person_id }));
-      promises.push(await post("phone", phone));
+      promises.push(await api.phone.post(phone));
     }
     if (email.length > 0) {
       email = email.map((el) => ({ ...el, person_id }));
-      promises.push(await post("email", email));
+      promises.push(await api.email.post(email));
     }
     if (address.length > 0) {
       address = address.map((el) => ({ ...el, person_id }));
-      promises.push(await post("address", address));
+      promises.push(await api.address.post(address));
     }
 
-    promises.push(await put("person", { id: person_id, teacher_id }));
+    promises.push(await api.person.update({ id: person_id, teacher_id }));
 
     await Promise.all([promises]);
 

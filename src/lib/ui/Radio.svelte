@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { uid, toSlug } from "$lib/utils";
 
   export let id = uid();

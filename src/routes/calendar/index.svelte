@@ -9,15 +9,15 @@
 <script>
   // @ts-nocheck
   import { getContext } from "svelte";
-  import { WEEKDAY, WEEKDAYS, WEEKEND, DATEFORMAT } from "$lib/constants";
+  import { WEEKDAYS, DATEFORMAT } from "$lib/constants";
+  import dayjs from "dayjs";
   import DateSwitcher from "$lib/components/date/DateSwitcher.svelte";
   import Program from "$lib/components/calendar/Program.svelte";
-  import dayjs from "dayjs";
+  import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
+  import WeekdayFilter from "$lib/components/filter/WeekdayFilter.svelte";
 
-  const PROGRAMS = getContext("programs");
-
-  let weekdays = WEEKDAYS; // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-  let programs = PROGRAMS;
+  let filteredWeekdays = WEEKDAYS; // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  let filteredPrograms = getContext("programs");
 
   export let time_slot = [];
   let time_slots = time_slot;
@@ -37,35 +37,14 @@
   <h1>Calendar</h1>
   <DateSwitcher bind:start />
 
-  <div class="grid  gap-2">
-    <div class="flex gap-2 p-1 place-items-center">
-      <button class="text-xs" on:click={() => (programs = PROGRAMS)}>ALL</button>
-      <button class="text-xs" on:click={() => (programs = [])}>NONE</button>
-      {#each PROGRAMS as program}
-        <label class="flex gap-2 place-items-center uppercase">
-          <input type="checkbox" bind:group={programs} name="programs" value={program} />
-          {program.label}
-        </label>
-      {/each}
-    </div>
-    <div class="flex gap-2 p-1 place-items-center">
-      <button class="text-xs" on:click={() => (weekdays = WEEKDAYS)}>ALL</button>
-      <button class="text-xs" on:click={() => (weekdays = [])}>NONE</button>
-      <button class="text-xs" on:click={() => (weekdays = WEEKDAY)}>WEEKDAY</button>
-      <button class="text-xs" on:click={() => (weekdays = WEEKEND)}>WEEKEND</button>
-      {#each WEEKDAYS as day}
-        <label class="flex gap-2 place-items-center uppercase">
-          <input type="checkbox" bind:group={weekdays} name="weekdays" value={day} />
-          {day.slice(0, 3)}
-        </label>
-      {/each}
-    </div>
-
+  <div class="grid gap-2">
+    <ProgramFilter bind:filteredPrograms />
+    <WeekdayFilter bind:filteredWeekdays />
     <hr />
     <div class="grid gap-4 h-[80vh] overflow-y-scroll">
       {#each WEEKDAYS as weekday, i (weekday)}
         {@const date = dayjs(start).isoWeekday(i + 1)}
-        {#if weekdays.includes(weekday)}
+        {#if filteredWeekdays.includes(weekday)}
           <ul class="border p-2">
             <li class=" font-bold uppercase">
               {weekday} - {date.format(DATEFORMAT)}
@@ -73,7 +52,7 @@
             {#each time_slots.filter((slot) => slot.weekday === weekday) as time_slot (time_slot.id)}
               <li class="border p-1 flex gap-4 min-h-[2rem] mb-1">
                 <span class="w-[10ch]">{time_slot.time}</span>
-                <Program bind:programs date={date.format()} {time_slot} {updateData} />
+                <Program bind:programs={filteredPrograms} date={date.format()} {time_slot} {updateData} />
                 <span />
               </li>
             {/each}

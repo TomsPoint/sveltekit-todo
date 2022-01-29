@@ -1,15 +1,14 @@
 import { supabase } from '$lib/db'
 
 export * from '$lib/api/person'
+export * from '$lib/api/students'
+export * from '$lib/api/teachers'
 
-export const students = {
+export const contacts = {
   async get() {
     const { data } = await supabase
       .from('person')
-      .select(
-        '*,phone(*),email(*),teacher(*),student(*,student_weekly_enrolment(*,program(*)))',
-      )
-      .gt('student_id', 0)
+      .select('*,phone(*),email(*),address(*)')
       .order('first_name', { ascending: true })
     return data
   },
@@ -17,7 +16,7 @@ export const students = {
     const { data } = await supabase
       .from('person')
       .select(
-        '*,phone(*),email(*),student(*,student_weekly_enrolment(*),student_classroom_enrolment(*,classroom(*,time_slot(*),teacher(person(first_name)))),student_camp_enrolment(*,camp(*)))',
+        '*,phone(*),email(*),address(*),teacher(*,classroom(*,time_slot(*))),student(*)',
       )
       .eq('id', id)
       .single()

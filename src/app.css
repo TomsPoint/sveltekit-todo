@@ -82,7 +82,7 @@
     }
 
     .add {
-      @apply min-w-max w-36;
+      @apply min-w-max w-36 mt-4;
     }
   }
 }

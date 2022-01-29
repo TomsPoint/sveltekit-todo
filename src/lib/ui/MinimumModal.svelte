@@ -1,7 +1,6 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import * as api from "$lib/api/_api";
   import { closeModal } from "svelte-modals";
-  import { put } from "$lib/api_old";
 
   // provided by Modals
   export let isOpen;
@@ -9,7 +8,7 @@
   let data = {};
 
   const _save = async () => {
-    await put("tablename", data);
+    await api.API.update(data);
     closeModal();
     location.reload();
   };

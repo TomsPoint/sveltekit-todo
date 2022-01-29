@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { uid } from "$lib/utils";
 
   import dayjs from "dayjs";

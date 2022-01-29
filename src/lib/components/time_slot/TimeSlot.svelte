@@ -1,5 +1,6 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
   import { createEventDispatcher, getContext } from "svelte";
   import { TIMESLOTS, WEEKDAYS } from "$lib/constants";
   import Select from "$lib/ui/Select.svelte";
@@ -10,7 +11,7 @@
   export let time_slot;
   if (time_slot.label === null) time_slot.label = time_slot.weekday.slice(0, 3) + " " + time_slot.time;
 
-  const PROGRAM = getContext("programs");
+  const PROGRAM: Program[] = getContext("programs");
   let selectedPrograms = PROGRAM.filter((el) => time_slot.programs.includes(el.label));
 
   const update = async () => {

@@ -1,26 +1,25 @@
 <script lang="ts" context="module">
-  import { getFiltered, put } from "$lib/api_old";
+  import * as api from "$lib/api/projects";
 
   export async function load({ params }) {
     return {
-      props: { project: await getFiltered("projects", "*", { column: "id", value: params.id }) },
+      props: { project: await api.projects.getById(params.idparams.id) },
     };
   }
 </script>
 
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
   import { goto } from "$app/navigation";
   import { getContext } from "svelte";
-
-  const curricula = getContext("curricula");
+  import { uuid } from "$lib/utils";
 
   import Tree from "$lib/components/treeview/Tree.svelte";
   import Select from "$lib/ui/Select.svelte";
-  import { uuid } from "$lib/utils";
 
   export let project;
-  console.log("🚀  ~ file: [id].svelte ~ line 18 ~ project", project);
+  const programs: Program[] = getContext("programs");
 
   let isEditing = false;
 
@@ -29,7 +28,7 @@
   const toggleEditing = () => (isEditing = !isEditing);
 
   const _onOkay = async () => {
-    await put("projects", project);
+    await api.projects.update(project);
     toggleEditing();
   };
 </script>
@@ -56,11 +55,11 @@
       {/if}
     </div>
     <div>
-      <span>Curricula:</span>
+      <span>Program:</span>
       {#if isEditing}
-        <Select items={curricula} bind:value={project.curricula_id} />
+        <Select items={programs} bind:value={project.program_id} />
       {:else}
-        <span>{curricula.find((el) => el.id === project.curricula_id).name}</span>
+        <span>{programs.find((el) => el.id === project.program_id).name}</span>
       {/if}
     </div>
     <hr />

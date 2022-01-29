@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import DateInput from "$lib/components/date/DateInput.svelte";
   import dayjs from "dayjs";
   import weekOfYear from "dayjs/plugin/weekOfYear";

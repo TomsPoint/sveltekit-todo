@@ -1,7 +1,7 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import * as api from "$lib/api/contacts";
+
   import { page } from "$app/stores";
-  import { post } from "$lib/api_old";
   import { GENDER } from "$lib/constants";
   import { back } from "$lib/utils";
   import { addressObj, emailObj, personObj, phoneObj } from "$lib/objects";
@@ -18,20 +18,20 @@
 
   const add = async () => {
     const promises = [];
-    const res_person = await post("person", person);
+    const res_person = await api.person.post(person);
     const person_id = res_person[0].id;
 
     if (phone.length > 0) {
       phone = phone.map((el) => ({ ...el, person_id }));
-      promises.push(await post("phone", phone));
+      promises.push(await api.phone.post(phone));
     }
     if (email.length > 0) {
       email = email.map((el) => ({ ...el, person_id }));
-      promises.push(await post("email", email));
+      promises.push(await api.email.post(email));
     }
     if (address.length > 0) {
       address = address.map((el) => ({ ...el, person_id }));
-      promises.push(await post("address", address));
+      promises.push(await api.address.post(address));
     }
 
     await Promise.all([promises]);

@@ -1,11 +1,11 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
   import { getContext, onMount } from "svelte";
   import { closeModal } from "svelte-modals";
+  import * as api from "$lib/api/student_classroom_enrolment";
   import InputDate from "$lib/ui/InputDate.svelte";
   import Select from "$lib/ui/Select.svelte";
-
-  import * as api from "$lib/api/student_classroom_enrolment";
 
   // provided by Modals
   export let isOpen;
@@ -16,18 +16,18 @@
 
   let selectedClassroom;
   let selectedProgram;
-  const programs = getContext("programs");
+  const programs: Program[] = getContext("programs");
 
-  const programIds = [...new Set(student.student_weekly_enrolment.map((el) => el.program_id))].sort((a, b) => a - b);
+  const programIds = [...new Set(student.student_weekly_enrolment.map((el) => el.program_id))].sort((a, b) => +a - +b);
   $: filteredPrograms = programs.filter((el) => programIds.includes(el.id));
 
-  $: classrooms = classrooms.map((el) => {
+  $: classroomsEnriched = classrooms.map((el) => {
     return {
       ...el,
       label: `${el.time_slot.label} - ${el.mode} - ${el.teacher.person[0].first_name} - (${el.student_classroom_enrolment.length}/${el.capacity})`,
     };
   });
-  $: filteredClassrooms = classrooms.filter((el) => selectedProgram?.id === el.program_id && el.capacity - el.student_classroom_enrolment.length > 0);
+  $: filteredClassrooms = classroomsEnriched.filter((el) => selectedProgram?.id === el.program_id && el.capacity - el.student_classroom_enrolment.length > 0);
 
   let item = {
     classroom_id: selectedClassroom?.id,

@@ -1,5 +1,4 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
   import { emailObj } from "$lib/objects";
 
   const initialValue = Object.assign({}, emailObj);

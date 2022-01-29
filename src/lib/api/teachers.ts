@@ -21,16 +21,16 @@ export const teachers = {
       .single()
     return data
   },
-  // async post(payload) {
-  //   const { data } = await supabase.from('student').insert(payload)
-  //   return data
-  // },
-  // async update(payload) {
-  //   const { data } = await supabase.from('student').upsert(payload)
-  //   return data
-  // },
-  // async delete(id) {
-  //   const { data } = await supabase.from('student').delete().match({ id: id })
-  //   return data
-  // },
+  async post(payload) {
+    const { data } = await supabase.from('teacher').insert(payload)
+    return data
+  },
+  async update(payload) {
+    const { data } = await supabase.from('teacher').upsert(payload)
+    return data
+  },
+  async delete(id) {
+    const { data } = await supabase.from('teacher').delete().match({ id: id })
+    return data
+  },
 }

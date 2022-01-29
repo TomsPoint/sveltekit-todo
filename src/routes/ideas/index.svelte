@@ -6,7 +6,7 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import { user } from "$lib/db";
   import AddIdea from "$lib/components/ideas/AddIdea.svelte";
   import Idea from "$lib/components/ideas/Idea.svelte";

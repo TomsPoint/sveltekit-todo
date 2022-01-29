@@ -1,14 +1,13 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import * as api from "$lib/api/projects";
+
   import { closeModal } from "svelte-modals";
-  import { put } from "$lib/api_old";
   import Input from "$lib/ui/Input.svelte";
   import Radio from "$lib/ui/Radio.svelte";
 
   // provided by Modals
   export let isOpen;
   export let program;
-  console.log("🚀  ~ file: AddProject.svelte ~ line 9 ~ program", program);
 
   let data = {
     program_id: program.id,
@@ -18,10 +17,9 @@
     learning_points: [{}],
     progress: [{}],
   };
-  $: console.log("🚀  ~ file: AddProject.svelte ~ line 15 ~ data", data);
 
   const _save = async () => {
-    await put("project", data);
+    await api.projects.post(data);
     closeModal();
     location.reload();
   };

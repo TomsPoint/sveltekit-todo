@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
+  import * as api from "$lib/api/students";
+
   import { page } from "$app/stores";
-  import { post, put } from "$lib/api_old";
   import { GENDER, WEEKLY_STATUS } from "$lib/constants";
   import { back } from "$lib/utils";
   import Input from "$lib/ui/Input.svelte";
@@ -15,22 +16,22 @@
   let student = studentObj;
 
   const add = async () => {
-    const res_person = await post("person", person);
-    const res_student = await post("student", student);
+    const res_person = await api.person.post(person);
+    const res_student = await api.students.post(student);
     const person_id = res_person[0].id;
     const student_id = res_student[0].id;
     const promises = [];
 
     if (phone.length > 0) {
       phone = phone.map((el) => ({ ...el, person_id }));
-      promises.push(await post("phone", phone));
+      promises.push(await api.phone.post(phone));
     }
     if (email.length > 0) {
       email = email.map((el) => ({ ...el, person_id }));
-      promises.push(await post("email", email));
+      promises.push(await api.email.post(email));
     }
 
-    promises.push(await put("person", { id: person_id, student_id }));
+    promises.push(await api.person.update({ id: person_id, student_id }));
 
     await Promise.all([promises]);
 

@@ -1,31 +1,48 @@
-<script context="module">
-  import { get } from "$lib/api_old";
-
+<script context="module" lang="ts">
+  import * as api from "$lib/api/contacts";
   export async function load() {
-    return {
-      props: {
-        persons: await get("person", "*,phone(*),email(*),address(*)"),
-      },
-    };
+    return { props: { persons: await api.contacts.get() } };
   }
 </script>
 
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Person } from "$lib/interface";
+
   import { page } from "$app/stores";
+  import Input from "$lib/ui/Input.svelte";
+  import TypeFilter from "$lib/components/filter/TypeFilter.svelte";
 
-  export let persons = [];
+  export let persons: Person[];
 
-  persons = persons.map((person) => {
-    if (person.phone.length === 0) person.phone = [{ nr: "", primary: false, whatsapp: false }];
-    if (person.email.length === 0) person.email = [{ nr: "", primary: false }];
-    return person;
+  let filter = "";
+  let filteredTypes = [];
+
+  let data = persons.map((person) => {
+    return {
+      ...person,
+      name: person.first_name + " " + person.last_name,
+
+      phone: person.phone.length === 0 ? [{ phone: "", primary: false, whatsapp: false }] : person.phone,
+      email: person.email.length === 0 ? [{ email: "", primary: false }] : person.email,
+    };
   });
+
+  $: prefilteredContact = data.filter((obj) => filteredTypes.some((el) => obj[el] !== null));
+
+  $: filteredContacts =
+    filter.length === 0 ? prefilteredContact : prefilteredContact.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
 
 <section>
   <h1>Contacts:</h1>
-
+  <div class="grid gap-4 grid-cols-4 pb-8">
+    <Input bind:value={filter} label="Filter" />
+    <!-- <ProgramFilter bind:filteredPrograms /> -->
+    <TypeFilter bind:filteredTypes class="col-span-2" />
+    <span class=" place-self-center">
+      <a class="button w-max justify-self-start" href="{$page.url.pathname}/add">Add Contact</a>
+    </span>
+  </div>
   <ul class="data-table">
     <li class="table-header">
       <span class="left">Name</span>
@@ -38,7 +55,7 @@
       <span>Lead</span>
       <span>&nbsp;</span>
     </li>
-    {#each persons as { id, first_name, last_name, phone, email, birthday, student_id, teacher_id, billing_contact_id, contact_person_id, lead_id }}
+    {#each filteredContacts as { id, first_name, last_name, phone, email, birthday, student_id, teacher_id, billing_contact_id, contact_person_id, lead_id }}
       <li>
         <span class="left">{first_name} {last_name}</span>
         <span class="left">{email.find((el) => el.primary === true)?.email || email[0]?.email || ""}</span>
@@ -51,9 +68,9 @@
         <button class="edit"><a href="{$page.url.pathname}/edit-{id}">✐</a></button>
       </li>
     {/each}
-    <li>
+    <p class="mt-4">
       <a class="button w-max justify-self-start" href="{$page.url.pathname}/add">Add Contact</a>
-    </li>
+    </p>
   </ul>
 </section>
 

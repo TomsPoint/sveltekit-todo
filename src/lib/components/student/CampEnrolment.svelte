@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getContext } from "svelte";
   import { openModal } from "svelte-modals";
   import { DATEFORMAT } from "$lib/constants";
@@ -6,11 +6,12 @@
   import dayjs from "dayjs";
   import EditEnrolment from "./EditCampEnrolment.svelte";
   import AddEnrolment from "./AddCampEnrolment.svelte";
+  import type { Student, Program } from "$lib/interface";
 
-  export let student = {};
+  export let student: Student;
   let { student_camp_enrolment: enrolment } = student;
 
-  const programs = getContext("programs");
+  const programs: Program[] = getContext("programs");
 
   const addEnrolment = async () => openModal(AddEnrolment, { student });
 
@@ -18,10 +19,7 @@
 
   const deleteEnrolment = async (id) => {
     await api.enrolment.delete(id);
-    enrolment = enrolment.splice(
-      enrolment.findIndex((i) => i.id === id),
-      1
-    );
+    enrolment = enrolment.filter((el) => el.id !== id);
   };
 </script>
 
@@ -35,7 +33,7 @@
   </li>
   {#each enrolment.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()) as item}
     <li>
-      <span class=" !text-left">{item.classroom.time_slot.weekday}</span>
+      <span class=" !text-left">{item.camp.time_slot.weekday}</span>
       <span class="left">{programs.find((el) => el.id === item.camp.program_id).name}</span>
       <span>{item.camp.mode}</span>
       <span>{dayjs(item.camp.start_date).format(DATEFORMAT)}</span>

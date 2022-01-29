@@ -1,10 +1,16 @@
-<script>
+<script lang="ts">
   import { uuid } from "$lib/utils";
   export let readonly = false;
   export let expanded = true;
 
-  export let item = {};
-  export let items;
+  interface Item {
+    id: string;
+    name: string;
+    sort_order: number;
+  }
+
+  export let item: Item;
+  export let items: any[];
 
   if (items.length === 0) items = [{ id: uuid(), name: "", sort_order: 1 }];
 

@@ -4,7 +4,7 @@ export let personObj = {
   gender: 'male',
   birthday: '2000-01-01',
 }
-export const emailObj = { email: '', primary: '' }
+export const emailObj = { email: '', primary: false }
 
 export const phoneObj = {
   phone: '',
@@ -34,4 +34,11 @@ export const studentObj = {
 
 export const teacherObj = {
   programs: [],
+}
+
+export const programObj = {
+  label: '',
+  level: [],
+  name: '',
+  slot_duration: 60,
 }

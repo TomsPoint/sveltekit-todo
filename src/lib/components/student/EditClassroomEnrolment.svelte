@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { closeModal } from "svelte-modals";
-  import InputDate from "$lib/ui/InputDate.svelte";
   import * as api from "$lib/api/student_classroom_enrolment";
+  import InputDate from "$lib/ui/InputDate.svelte";
 
   // provided by Modals
   export let isOpen;

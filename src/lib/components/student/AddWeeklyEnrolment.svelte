@@ -1,5 +1,6 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
   import { getContext } from "svelte";
   import { closeModal } from "svelte-modals";
   import Input from "$lib/ui/Input.svelte";
@@ -12,7 +13,7 @@
   export let isOpen;
   export let student_id;
 
-  const programs = getContext("programs");
+  const programs: Program[] = getContext("programs");
 
   let item = {
     frequency: 1,

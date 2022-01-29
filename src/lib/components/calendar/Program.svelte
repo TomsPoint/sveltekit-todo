@@ -1,5 +1,4 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
   import ProgramDetails from "./ProgramDetails.svelte";
 
   export let programs;
@@ -8,8 +7,9 @@
   export let updateData;
 
   $: unique_programs = [...new Set(time_slot.classroom.map((item) => item.program_id))];
+  $: filteredPrograms = programs.filter((program) => unique_programs.includes(program.id));
 </script>
 
-{#each programs.filter((program) => unique_programs.includes(program.id)) as program (program.id)}
+{#each filteredPrograms as program (program.id)}
   <ProgramDetails {program} {date} {time_slot} {updateData} />
 {/each}

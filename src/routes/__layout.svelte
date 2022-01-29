@@ -1,8 +1,8 @@
 <script context="module">
-  import { get } from "$lib/api_old";
+  import * as api from "$lib/api/layout";
 
   export async function load() {
-    let [programs, classrooms] = await Promise.all([await get("program"), await get("classroom")]);
+    let [programs, classrooms] = await Promise.all([await api.programs.get(), await api.classrooms.get()]);
 
     return {
       props: { programs, classrooms },
@@ -10,13 +10,11 @@
   }
 </script>
 
-<script>
-  // @ts-nocheck
-
+<script lang="ts">
   import { user } from "$lib/db";
   import { setContext } from "svelte";
   import { page } from "$app/stores";
-  import { PROTECTED_ROUTES } from "$lib/constants";
+  import { PROTECTED_ROUTES, WEEKDAYS } from "$lib/constants";
   import { Modals, closeModal } from "svelte-modals";
   import { fade } from "svelte/transition";
   import "../app.css";
@@ -27,6 +25,7 @@
   export let classrooms;
   setContext("programs", programs);
   setContext("classrooms", classrooms);
+  setContext("weekdays", WEEKDAYS);
 </script>
 
 <Modals>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { closeModal } from "svelte-modals";
   import * as api from "$lib/api/student_camp_enrolment";
 

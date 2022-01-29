@@ -33,16 +33,16 @@
   };
 
   const add = async (e) => {
-    await api.time_slots.post(e.detail);
+    await api.time_slot.post(e.detail);
     getTimeSlot();
   };
   const remove = async (e) => {
-    await api.time_slots.delete(e.detail.id);
+    await api.time_slot.delete(e.detail.id);
     getTimeSlot();
   };
 
   const update = async (e) => {
-    await api.time_slots.update(e.detail);
+    await api.time_slot.update(e.detail);
   };
 </script>
 
@@ -92,7 +92,7 @@
   <h2>Time Slots:</h2>
   <ul>
     {#each filtered_time_slots as time_slot (time_slot.id)}
-      <TimeSlot bind:time_slot on:update={update} on:remove={remove} />
+      <TimeSlot bind:time_slot on:update={() => update} on:remove={() => remove} />
     {/each}
   </ul>
   <hr />

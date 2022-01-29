@@ -1,5 +1,4 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
   import { addressObj } from "$lib/objects";
 
   const initialValue = Object.assign({}, addressObj);

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // @ts-nocheck
   import { uid } from "$lib/utils";
 
@@ -170,7 +170,7 @@
   let opened = false;
   let loading = false;
   let highlightIndex = -1;
-  export let text;
+  export let text = "";
   let filteredTextLength = 0;
 
   // view model
@@ -1057,15 +1057,12 @@
 
   .autocomplete:not(.hide-arrow) .autocomplete-input {
     @apply pr-8;
-    /* padding-right: 2em; */
   }
   .autocomplete.show-clear:not(.hide-arrow) .autocomplete-input {
     @apply pr-12;
-    /* padding-right: 3.2em; */
   }
   .autocomplete.hide-arrow.show-clear .autocomplete-input {
     @apply pr-8;
-    /* padding-right: 2em; */
   }
 
   .autocomplete-list {
@@ -1126,28 +1123,10 @@
   .autocomplete.is-multiple .tags {
     @apply bg-yellow-100 rounded-3xl grid gap-2 px-2 py-1 ml-1 grid-cols-[repeat(2,auto)] place-items-center leading-none uppercase text-sm;
   }
-  /*   .autocomplete.is-multiple .tag {
-    @apply flex;
-  } */
 
   .autocomplete.is-multiple .tag.is-delete {
     @apply cursor-pointer text-xs py-[0.1rem];
   }
-  /* .autocomplete.is-multiple .tags > .tag::after {
-    content: ",";
-  }
-  .autocomplete.is-multiple .tags > .tag.is-delete::after {
-    content: "";
-  }
-
-  .autocomplete.is-multiple .tags:nth-last-child(3) > .tag::after {
-    content: "";
-  } */
-
-  /* .autocomplete.is-multiple .tags {
-    margin-right: 0.3em;
-    margin-bottom: 0;
-  } */
 
   .autocomplete.is-multiple .autocomplete-input {
     display: flex;

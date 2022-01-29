@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import DateInput from "$lib/components/date/DateInput.svelte";
 
   export let start;

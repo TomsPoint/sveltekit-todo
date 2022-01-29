@@ -1,8 +1,6 @@
-<script>
-  import { put } from "$lib/api_old";
-
-  // @ts-nocheck
+<script lang="ts">
   import { closeModal } from "svelte-modals";
+  import * as api from "$lib/api/student_weekly_enrolment";
   import InputDate from "$lib/ui/InputDate.svelte";
 
   // provided by Modals
@@ -10,7 +8,7 @@
   export let item;
 
   const _save = async () => {
-    await put("student_weekly_enrolment", item);
+    await api.enrolment.update(item);
     closeModal();
     location.reload();
   };

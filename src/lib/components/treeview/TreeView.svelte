@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let readonly = false;
   export let expanded = false;
 

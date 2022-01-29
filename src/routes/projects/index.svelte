@@ -1,15 +1,14 @@
 <script context="module">
-  import * as api from "$lib/api_old";
+  import * as api from "$lib/api/projects";
 
   export async function load() {
     return {
-      props: { projects: await api.projects.all() },
+      props: { projects: await api.projects.get() },
     };
   }
 </script>
 
 <script>
-  // @ts-nocheck
   import { openModal } from "svelte-modals";
   import { getContext } from "svelte";
 

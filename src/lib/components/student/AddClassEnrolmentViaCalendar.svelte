@@ -1,5 +1,4 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
   import { closeModal } from "svelte-modals";
   import { onMount } from "svelte";
   import { isDateBetween } from "$lib/utils";
@@ -7,6 +6,7 @@
   import Select from "$lib/ui/Select.svelte";
 
   import * as api from "$lib/api/student_classroom_enrolment";
+  import type { StudentClassroomEnrolment } from "$lib/interface";
 
   export let date;
 
@@ -31,11 +31,11 @@
     }))
     .filter((person) => person.student.student_weekly_enrolment.some((enrolment) => enrolment.program_id === program.id));
 
-  let enrolment = { classroom_id };
-  let student = {};
+  let enrolment: StudentClassroomEnrolment = { classroom_id, student_id: undefined, start_date: undefined, end_date: undefined };
+  let student;
 
   const _save = async () => {
-    await api.enrolment.post(enrolment);
+    await api.enrolment.post({ ...enrolment, classroom_id });
     closeModal();
     onClose();
   };

@@ -1,20 +1,19 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
 
   import { createEventDispatcher, getContext } from "svelte";
   import { TIMESLOTS, WEEKDAYS } from "$lib/constants";
-  // import Select from "simple-svelte-autocomplete";
   import Select from "$lib/ui/Select.svelte";
 
   const dispatch = createEventDispatcher();
 
   let newData = {
-    weekday: "",
-    time: "",
+    weekday: null,
+    time: null,
     programs: [],
   };
 
-  let programs = getContext("programs").map((a) => a.label);
+  let programs: Program[] = getContext("programs");
 
   const add = async () => {
     dispatch("add", newData);
@@ -32,7 +31,7 @@
   </label>
   <label for="">
     Program(s):
-    <Select items={programs} bind:selectedItem={newData.programs} multiple />
+    <Select items={programs.map((a) => a.label.toUpperCase())} bind:selectedItem={newData.programs} multiple />
   </label>
 
   <button class="rounded-l-none place-self-end h-10">Add Time Slot</button>

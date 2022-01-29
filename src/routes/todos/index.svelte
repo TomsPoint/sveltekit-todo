@@ -6,7 +6,7 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import { user } from "$lib/db";
   import AddTodo from "$lib/components/todos/AddTodo.svelte";
   import Todo from "$lib/components/todos/Todo.svelte";

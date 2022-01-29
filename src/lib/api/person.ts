@@ -5,6 +5,15 @@ export const person = {
     const { data } = await supabase.from('person').select('*')
     return data
   },
+  async getById(id) {
+    const { data } = await supabase
+      .from('person')
+      .select('*,phone(*),email(*),address(*)')
+      .eq('id', id)
+      .single()
+
+    return data
+  },
   async post(payload) {
     const { data } = await supabase.from('person').insert(payload)
     return data

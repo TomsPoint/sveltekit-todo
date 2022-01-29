@@ -6,41 +6,66 @@
   }
 </script>
 
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
   import { page } from "$app/stores";
+  import { getContext } from "svelte";
+  import { isDateBetween } from "$lib/utils";
   import Input from "$lib/ui/Input.svelte";
+  import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
 
   export let students = [];
 
   let filter = "";
+  const PROGRAMS: Program[] = getContext("programs");
+  let filteredPrograms = PROGRAMS;
 
-  students = students.map((student) => {
-    student.name = student.first_name + " " + student.last_name;
-    if (student.phone.length === 0) student.phone = [{ nr: "", primary: false, whatsapp: false }];
-    if (student.email.length === 0) student.email = [{ nr: "", primary: false }];
-    return student;
+  let data = students.map((person) => {
+    return {
+      ...person,
+      name: person.first_name + " " + person.last_name,
+      phone: person.phone.length === 0 ? [{ phone: "", primary: false, whatsapp: false }] : person.phone,
+      email: person.email.length === 0 ? [{ email: "", primary: false }] : person.email,
+      student: {
+        ...person.student,
+        student_weekly_enrolment: person.student.student_weekly_enrolment.filter((el) => isDateBetween(new Date(), el.start_date, el.end_date)),
+        program_ids: person.student.student_weekly_enrolment.map((el) => el.program_id),
+      },
+    };
   });
-  $: filteredStudents = filter.length === 0 ? students : students.filter((student) => student.name.toLowerCase().includes(filter.toLowerCase()));
+
+  $: prefilteredStudents = data.filter((obj) => obj.student.program_ids.some((el) => filteredPrograms.map((el) => el.id).includes(el)));
+
+  $: filteredStudents =
+    filter.length === 0 ? prefilteredStudents : prefilteredStudents.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
 
 <section>
   <h1>Students:</h1>
-  <Input bind:value={filter} label="Filter" />
-  <a class="button w-max mb-8" href="{$page.url.pathname}/add">Add Student</a>
+  <div class="grid gap-4 grid-cols-3 pb-8">
+    <Input bind:value={filter} label="Filter" />
+    <ProgramFilter bind:filteredPrograms />
+    <span class=" place-self-center">
+      <a class="button w-max " href="{$page.url.pathname}/add">Add Student</a>
+    </span>
+  </div>
+
   <ul class="data-table">
     <li class="table-header">
       <span class="left">Name</span>
       <span class="left">Email</span>
       <span class="left">Phone</span>
+      <span class="left">Programs</span>
       <span>Birthday</span>
       <span>&nbsp;</span>
     </li>
-    {#each filteredStudents as { id, first_name, last_name, phone, email, birthday, student_id, teacher_id, billing_contact_id, contact_person_id, lead_id }}
+    {#each filteredStudents as { id, first_name, last_name, phone, email, birthday, student }}
       <li>
         <span class="left">{first_name} {last_name}</span>
         <span class="left">{email.find((el) => el.primary === true)?.email || email[0]?.email || ""}</span>
         <span class="left">{phone.find((el) => el.primary === true)?.phone || phone[0]?.phone || ""}</span>
+        <span class="left">{student.student_weekly_enrolment.map((el) => el.program.label.toUpperCase()).join(", ")}</span>
         <span>{!!birthday ? birthday : ""}</span>
         <span>
           <button class="edit"><a href="{$page.url.pathname}/edit-{id}">✐</a></button>
@@ -52,6 +77,6 @@
 
 <style lang="postcss">
   li {
-    @apply grid gap-4 p-1 grid-cols-[repeat(1,30ch)repeat(1,20ch)repeat(2,15ch)repeat(1,auto)];
+    @apply grid gap-4 p-1 grid-cols-[repeat(1,30ch)repeat(1,20ch)repeat(3,15ch)repeat(1,auto)];
   }
 </style>

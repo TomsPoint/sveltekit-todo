@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+  import type { Program, Student } from "$lib/interface";
+
   import { getContext } from "svelte";
   import { openModal } from "svelte-modals";
   import { DATEFORMAT } from "$lib/constants";
@@ -7,19 +9,18 @@
   import EditEnrolment from "./EditClassroomEnrolment.svelte";
   import AddEnrolment from "./AddClassroomEnrolment.svelte";
 
-  export let student = {};
+  export let student: Student;
   let { student_classroom_enrolment: enrolment } = student;
 
-  const programs = getContext("programs");
+  const programs: Program[] = getContext("programs");
 
-  // @ts-ignore
   const addEnrolment = async () => openModal(AddEnrolment, { student });
 
   const editEnrolment = async (item) => openModal(EditEnrolment, { item });
 
   const deleteEnrolment = async (id) => {
     await api.enrolment.delete(id);
-    location.reload();
+    enrolment = enrolment.filter((el) => el.id !== id);
   };
 </script>
 
@@ -34,7 +35,7 @@
     <span>Start</span>
     <span>End</span>
   </li>
-  {#each enrolment.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()) as item}
+  {#each enrolment.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()) as item (item.id)}
     <li>
       <span class=" !text-left">{item.classroom.time_slot.weekday}</span>
       <span>{item.classroom.time_slot.time}</span>

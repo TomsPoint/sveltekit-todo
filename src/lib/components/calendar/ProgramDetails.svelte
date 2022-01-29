@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { openModal } from "svelte-modals";
   import { isDateBetween } from "$lib/utils";
   import AddClassEnrolmentViaCalendar from "../student/AddClassEnrolmentViaCalendar.svelte";
@@ -36,7 +36,7 @@
   };
 
   const editStudentToSlot = (classroom_id, enrolment) => {
-    openModal(EditClassEnrolmentViaCalendar, { program, classroom_id, time_slot, enrolment, date, onClose: () => updateData() });
+    openModal(EditClassEnrolmentViaCalendar, { program, classrooms, classroom_id, time_slot, enrolment, onClose: () => updateData() });
   };
 </script>
 

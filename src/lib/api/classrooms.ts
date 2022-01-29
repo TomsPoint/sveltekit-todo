@@ -18,12 +18,12 @@ export const classrooms = {
     if (error) console.log(error)
     return data
   },
-  // async update(payload) {
-  //   const { data } = await supabase.from('classroom').upsert(payload)
-  //   return data
-  // },
-  // async delete(id) {
-  //   const { data } = await supabase.from('classroom').delete().match({ id: id })
-  //   return data
-  // },
+  async update(payload) {
+    const { data } = await supabase.from('classroom').upsert(payload)
+    return data
+  },
+  async delete(id) {
+    const { data } = await supabase.from('classroom').delete().match({ id: id })
+    return data
+  },
 }

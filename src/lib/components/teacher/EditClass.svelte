@@ -1,8 +1,7 @@
-<script>
-  // @ts-nocheck
-  import { get, put } from "$lib/api_old";
+<script lang="ts">
+  import * as api from "$lib/api/classrooms";
+
   import { MODI } from "$lib/constants";
-  import { onMount } from "svelte";
   import { closeModal } from "svelte-modals";
   import Input from "$lib/ui/Input.svelte";
   import InputDate from "$lib/ui/InputDate.svelte";
@@ -11,9 +10,7 @@
   // provided by Modals
   export let isOpen;
   export let programs;
-  console.log("🚀  ~ file: EditClass.svelte ~ line 14 ~ programs", programs);
   export let item;
-  console.log("🚀  ~ file: EditClass.svelte ~ line 15 ~ item", item);
 
   let newClass = {
     id: item.id,
@@ -29,8 +26,7 @@
   const setMaxCapacity = () => (newClass.capacity = newClass.mode === "offline" ? 6 : 4);
 
   const saveClass = async () => {
-    const res = await put("classroom", newClass);
-    console.log("🚀  ~ file: EditClass.svelte ~ line 32 ~ res", res);
+    await api.classrooms.update(newClass);
     closeModal();
     location.reload();
   };

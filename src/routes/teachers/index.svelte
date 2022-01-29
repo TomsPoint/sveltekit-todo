@@ -1,36 +1,51 @@
 <script context="module">
-  import { getFiltered } from "$lib/api_old";
+  import * as api from "$lib/api/teachers";
 
   export async function load() {
     return {
-      props: {
-        persons: await getFiltered("person", "*,phone(*),email(*),address(*),teacher(*)", {
-          column: "teacher_id",
-          filter: "gt",
-          value: 0,
-          sort: "first_name",
-        }),
-      },
+      props: { teachers: await api.teachers.get() },
     };
   }
 </script>
 
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  import type { Program } from "$lib/interface";
+
   import { page } from "$app/stores";
+  import { getContext } from "svelte";
+  import Input from "$lib/ui/Input.svelte";
+  import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
 
-  export let persons = [];
+  export let teachers = [];
 
-  persons = persons.map((person) => {
-    if (person.phone.length === 0) person.phone = [{ nr: "", primary: false, whatsapp: false }];
-    if (person.email.length === 0) person.email = [{ nr: "", primary: false }];
-    return person;
+  let filter = "";
+  const PROGRAMS: Program[] = getContext("programs");
+  let filteredPrograms = PROGRAMS;
+
+  let data = teachers.map((person) => {
+    return {
+      ...person,
+      name: person.first_name + " " + person.last_name,
+      phone: person.phone.length === 0 ? [{ phone: "", primary: false, whatsapp: false }] : person.phone,
+      email: person.email.length === 0 ? [{ email: "", primary: false }] : person.email,
+    };
   });
+
+  $: prefilteredTeachers = data.filter((obj) => obj.teacher.programs.some((el) => filteredPrograms.map((el) => el.label).includes(el)));
+
+  $: filteredTeachers =
+    filter.length === 0 ? prefilteredTeachers : prefilteredTeachers.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
 
 <section>
   <h1>Teachers:</h1>
-  <a class="button w-max" href="{$page.url.pathname}/add">Add Teacher</a>
+  <div class="grid gap-4 grid-cols-3 pb-8">
+    <Input bind:value={filter} label="Filter" />
+    <ProgramFilter bind:filteredPrograms />
+    <span class=" place-self-center">
+      <a class="button w-max" href="{$page.url.pathname}/add">Add Teacher</a>
+    </span>
+  </div>
   <ul class="data-table">
     <li class="table-header">
       <span class="left">Name</span>
@@ -40,7 +55,7 @@
       <span>Programs</span>
       <span>&nbsp;</span>
     </li>
-    {#each persons as { id, first_name, last_name, phone, email, birthday, teacher }}
+    {#each filteredTeachers as { id, first_name, last_name, phone, email, birthday, teacher }}
       <li>
         <span class="left">{first_name} {last_name}</span>
         <span class="left">{email.find((el) => el.primary === true)?.email || email[0]?.email || ""}</span>
