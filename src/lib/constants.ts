@@ -28,6 +28,7 @@ export const GENDER = [
 export const WEEKLY_STATUS = ['active', 'inactive', 'dormant']
 export const MODI = ['offline', 'online']
 export const TYPES = ['regular', 'makeup', 'camp', 'trial']
+export const DATEFORMAT = 'DD/MM/YYYY'
 
 export const WEEKDAYS = [
   'Monday',
@@ -58,5 +59,3 @@ export const TIMESLOTS = [
   '15:00 - 16:30',
   '17:00 - 18:30',
 ]
-
-export const DATEFORMAT = 'DD/MM/YYYY'
