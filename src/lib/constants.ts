@@ -12,11 +12,7 @@ export const PROTECTED_ROUTES = [
 ]
 export const ROUTES = [
   { route: '/', label: 'Home' },
-  { route: '/todos', label: 'Todos' },
-  { route: '/ideas', label: 'Ideas' },
-  { route: '/time-slot', label: 'Time Slots' },
   { route: '/calendar', label: 'Calendar' },
-  { route: '/projects', label: 'Projects' },
   { route: '/contacts', label: 'Contacts' },
   { route: '/teachers', label: 'Teachers' },
   { route: '/students', label: 'Students' },
