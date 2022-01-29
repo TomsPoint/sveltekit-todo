@@ -47,10 +47,10 @@ export interface Student {
   short_name: string
   certificate_name: string
   weekly_status: string
-  git_username: []
-  portfolio: []
+  git_username: String[]
+  portfolio: String[]
   school: string
-  scratch_username: []
+  scratch_username: String[]
   student_weekly_enrolment: StudentWeeklyEnrolment[]
   student_classroom_enrolment: StudentClassroomEnrolment[]
   student_camp_enrolment: StudentCampEnrolment[]
