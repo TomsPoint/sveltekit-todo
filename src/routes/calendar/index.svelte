@@ -2,7 +2,7 @@
   import * as api from "$lib/api/time_slots";
 
   export async function load() {
-    return { props: { time_slot: await api.time_slot.get() } };
+    return { props: { time_slot: await api.time_slot.getForCalendar() } };
   }
 </script>
 

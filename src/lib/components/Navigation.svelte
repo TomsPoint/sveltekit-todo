@@ -8,7 +8,6 @@
     await supabase.auth.signOut();
     goto("/auth");
   };
-  console.log($page.url);
 </script>
 
 <a href="/"><img src="/images/logo.svg" alt="LCCL Coding Academy" class=" w-24" /></a>

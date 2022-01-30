@@ -17,8 +17,9 @@
   export let isOpen;
   export let program;
   export let time_slot;
-  export let classroom_id;
-  export let onClose;
+  export let classroom;
+
+  let classroom_id = classroom.id;
 
   $: students = data
     .map((person) => ({
@@ -37,7 +38,6 @@
   const _save = async () => {
     await api.enrolment.post({ ...enrolment, classroom_id });
     closeModal();
-    onClose();
   };
 
   const _cancel = () => closeModal();
@@ -46,16 +46,29 @@
 {#if isOpen}
   <div role="dialog" class="modal">
     <div class="contents">
-      <h2>Add Student</h2>
-      <p class="mb-8">{time_slot.weekday} {time_slot.time} - {program.name}</p>
+      <h2 class="mb-4">Add Student</h2>
       <Select
         items={students}
         bind:selectedItem={student}
         bind:value={enrolment.student_id}
         labelFieldName="full_name"
-        label="Student"
+        label="Student Name"
         valueFieldName="student_id"
+        placeholder="Pick a Student"
       />
+      <span>Timeslot</span>
+      <p>
+        {time_slot.weekday}
+        {time_slot.time}
+      </p>
+      <span>Program</span>
+      <p>
+        {program.name}
+      </p>
+      <span>Mode</span>
+      <p>
+        {classroom.mode}
+      </p>
 
       <InputDate bind:date={enrolment.start_date} label="Start" />
       <InputDate bind:date={enrolment.end_date} label="End" />
@@ -67,3 +80,12 @@
     </div>
   </div>
 {/if}
+
+<style lang="postcss">
+  span {
+    @apply text-sm;
+  }
+  p {
+    @apply mb-2 border rounded px-1 py-2 cursor-not-allowed text-gray-400;
+  }
+</style>

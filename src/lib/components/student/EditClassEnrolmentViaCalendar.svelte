@@ -10,7 +10,6 @@
   export let classroom_id = "";
   export let classrooms;
   export let enrolment;
-  export let onClose;
 
   classrooms.forEach((el) => {
     el.label = `${el.teacher.person[0].first_name} - ${el.mode} - (${el.student_classroom_enrolment.length}/${el.capacity})`;
@@ -34,7 +33,6 @@
   const _save = async () => {
     await api.enrolment.update(data);
     closeModal();
-    onClose();
   };
 
   const _cancel = () => closeModal();
@@ -43,10 +41,13 @@
 {#if isOpen}
   <div role="dialog" class="modal">
     <div class="contents">
-      <h3 class="mb-8">Edit Student:</h3>
-      <h2 class="mb-2">{enrolment.student.person[0].first_name} {enrolment.student.person[0].last_name}</h2>
-      <p class="mb-4 grid grid-cols-2"><span>{time_slot.weekday} {time_slot.time}</span> <span>{program.name}</span></p>
-      <hr class="col-span-full my-8" />
+      <h2 class="mb-4">Edit Student</h2>
+      <span>Student Name</span>
+      <p>{enrolment.student.person[0].first_name} {enrolment.student.person[0].last_name}</p>
+      <span>Timeslot</span>
+      <p>{time_slot.weekday} {time_slot.time}</p>
+      <span>Program</span>
+      <p>{program.name}</p>
       <Select
         items={filteredClassrooms}
         bind:selectedItem={selectedClassroom}
@@ -66,3 +67,12 @@
     </div>
   </div>
 {/if}
+
+<style lang="postcss">
+  span {
+    @apply text-sm;
+  }
+  p {
+    @apply mb-2 border rounded px-1 py-2 cursor-not-allowed text-gray-400;
+  }
+</style>

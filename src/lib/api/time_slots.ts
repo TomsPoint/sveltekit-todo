@@ -4,9 +4,17 @@ export const time_slot = {
   async get() {
     const { data } = await supabase
       .from('time_slot')
+      .select('*')
+      .order('sort_order', { ascending: true })
+    return data
+  },
+  async getForCalendar() {
+    const { data } = await supabase
+      .from('time_slot')
       .select(
         '*,classroom(*,student_classroom_enrolment(*,student(*,person(*))),time_slot(*),teacher(person(*)))',
       )
+      .order('sort_order', { ascending: true })
     return data
   },
   async post(payload) {

@@ -11,23 +11,26 @@
     weekday: null,
     time: null,
     programs: [],
+    label: "",
   };
 
   let programs: Program[] = getContext("programs");
+  let timeslot;
+  let weekday;
 
-  const add = async () => {
-    dispatch("add", newData);
-  };
+  async function add() {
+    dispatch("add", { ...newData, label: `${weekday.slice(0, 3)} ${timeslot.time}`, duration: timeslot.duration });
+  }
 </script>
 
 <form on:submit|preventDefault={add}>
   <label for="">
     Weekday:
-    <Select items={WEEKDAYS} bind:selectedItem={newData.weekday} />
+    <Select items={WEEKDAYS} bind:selectedItem={weekday} bind:value={newData.weekday} />
   </label>
   <label for="">
     Timeslot:
-    <Select items={TIMESLOTS} bind:selectedItem={newData.time} />
+    <Select items={TIMESLOTS} bind:selectedItem={timeslot} bind:value={newData.time} valueFieldName="time" labelFieldName="time" />
   </label>
   <label for="">
     Program(s):

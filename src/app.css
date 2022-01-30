@@ -34,7 +34,7 @@ h4 {
   .select,
   select,
   input {
-    @apply text-base border rounded-sm px-4 py-2 relative focus:ring-2 ring-yellow-500 ring-offset-0 focus:outline-none h-10 !bg-none;
+    @apply text-base border rounded-sm px-4 py-2 relative focus:ring-2 ring-yellow-500 ring-offset-0 focus:outline-none h-10 !bg-none cursor-text;
   }
   input[type='checkbox'],
   input[type='radio'] {

@@ -127,3 +127,13 @@ export interface Tabs {
   tabs: String[]
   name: String
 }
+
+export interface Absence {
+  id?: number
+  student_id: number
+  missed_date: Date
+  missed_classroom_id: number
+  makeup_date?: Date | null
+  makeup_classroom_id?: number
+  status: 'open' | 'sheduled' | 'missed' | 'consumed'
+}
