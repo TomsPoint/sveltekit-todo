@@ -11,10 +11,9 @@
   import PersonalInformation from "$lib/components/teacher/PersonalInformation.svelte";
   import Classrooms from "$lib/components/teacher/Classrooms.svelte";
   import Today from "$lib/components/teacher/Today.svelte";
+  import ReloadButton from "$lib/ui/ReloadButton.svelte";
 
   export let data;
-
-  const refreshData = async () => location.reload();
 
   let tabs = { tabs: ["Personal Information", "Classrooms", "Today"], name: "edit-teachers" };
   let active = "Personal Information";
@@ -25,8 +24,8 @@
 </svelte:head>
 
 <section>
-  <h1 class="text-center">Update Teacher:</h1>
-  <button on:click={refreshData}>Refresh</button>
+  <ReloadButton />
+  <h1>Update Teacher:</h1>
   <Tabs {tabs} bind:active>
     <div class="grid gap-4 grid-cols-2">
       {#if active === "Personal Information"}

@@ -1,13 +1,7 @@
 <script context="module" lang="ts">
-  // import { post, put, getFiltered, del, deleteFiltered } from "$lib/api_old";
-
   import * as api from "$lib/api/contacts";
 
   export async function load({ params }) {
-    // let data = await  getFiltered("person", "*,phone(*),email(*),address(*),student(*),teacher(*,classroom(*,time_slot(*)))", {
-    //   column: "id",
-    //   value: params.id,
-    // });
     return { props: { data: await api.contacts.getById(params.id) } };
   }
 </script>
@@ -25,6 +19,7 @@
   import Classrooms from "$lib/components/teacher/Classrooms.svelte";
   import Tabs from "$lib/ui/Tabs.svelte";
   import PersonalInformation from "$lib/components/contacts/PersonalInformation.svelte";
+  import ReloadButton from "$lib/ui/ReloadButton.svelte";
 
   export let data;
   let { email = [emailObj], phone = [phoneObj], address = [addressObj], student = studentObj, teacher = teacherObj, ...person } = data;
@@ -78,7 +73,8 @@
 </svelte:head>
 
 <section>
-  <h1 class="text-center">Update Contact:</h1>
+  <ReloadButton />
+  <h1>Update Contact:</h1>
   <Tabs {tabs} bind:active>
     <div class="grid gap-4 grid-cols-2">
       {#if active === "Personal Information"}

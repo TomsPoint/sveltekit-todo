@@ -31,7 +31,7 @@
 <Modals>
   <div slot="backdrop" class="backdrop" on:click={closeModal} transition:fade />
 </Modals>
-<header class="grid p-2 border-b">
+<header class="flex p-2 border-b place-items-center justify-between">
   <Navigation />
 </header>
 <main>
@@ -41,6 +41,7 @@
     <slot />
   {/if}
 </main>
+<footer>© LCCL Coding Academy</footer>
 
 <style lang="postcss">
   .backdrop {

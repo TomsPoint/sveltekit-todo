@@ -8,23 +8,22 @@
     @apply grid min-h-screen;
     grid-template-rows: auto 1fr auto;
   }
-  h1 {
-    @apply mb-3 text-3xl col-span-full;
-  }
-  h2 {
-    @apply mb-2 text-2xl col-span-full;
-  }
-  h3 {
-    @apply text-xl col-span-full;
-  }
-  h4 {
-    @apply col-span-full;
-  }
 }
-
+h1 {
+  @apply mb-6 text-3xl col-span-full;
+}
+h2 {
+  @apply mb-2 text-2xl col-span-full;
+}
+h3 {
+  @apply text-xl col-span-full;
+}
+h4 {
+  @apply col-span-full;
+}
 @layer components {
   section {
-    @apply py-5;
+    @apply py-8;
     & > * {
       @apply max-w-5xl m-auto;
     }

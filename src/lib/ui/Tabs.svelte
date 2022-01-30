@@ -27,7 +27,7 @@
 
 <style lang="postcss">
   li {
-    @apply cursor-pointer hover:text-yellow-400 text-xl;
+    @apply cursor-pointer hover:border-b-gray-400 hover:border-b-2 text-xl;
     &.active {
       @apply border-b-2 border-b-yellow-400;
     }

@@ -12,10 +12,9 @@
   import ProgramEnrolment from "$lib/components/student/ProgramEnrolment.svelte";
   import ClassroomEnrolment from "$lib/components/student/ClassroomEnrolment.svelte";
   import CampEnrolment from "$lib/components/student/CampEnrolment.svelte";
+  import ReloadButton from "$lib/ui/ReloadButton.svelte";
 
   export let data;
-
-  const refreshData = async () => location.reload();
 
   $: student = data.student;
 
@@ -30,8 +29,8 @@
 </svelte:head>
 
 <section>
-  <h1 class="text-center">Update Student:</h1>
-  <button on:click={refreshData}>Refresh</button>
+  <ReloadButton />
+  <h1>Update Student:</h1>
   <Tabs {tabs} bind:active>
     <div class="grid gap-4 grid-cols-2">
       {#if active === "Personal Information"}
