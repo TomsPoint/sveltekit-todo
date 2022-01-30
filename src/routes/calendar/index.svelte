@@ -15,16 +15,13 @@
   import Program from "$lib/components/calendar/Program.svelte";
   import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
   import WeekdayFilter from "$lib/components/filter/WeekdayFilter.svelte";
+  import ReloadButton from "$lib/ui/ReloadButton.svelte";
 
   let filteredWeekdays = WEEKDAYS; // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   let filteredPrograms = getContext("programs");
 
   export let time_slot = [];
   let time_slots = time_slot;
-
-  const updateData = async () => {
-    time_slots = await api.time_slot.get();
-  };
 
   let start;
 </script>
@@ -34,6 +31,7 @@
 </svelte:head>
 
 <section>
+  <ReloadButton />
   <h1>Calendar</h1>
   <DateSwitcher bind:start />
 
@@ -52,7 +50,7 @@
             {#each time_slots.filter((slot) => slot.weekday === weekday) as time_slot (time_slot.id)}
               <li class="border p-1 flex gap-4 min-h-[2rem] mb-1">
                 <span class="w-[10ch]">{time_slot.time}</span>
-                <Program bind:programs={filteredPrograms} date={date.format()} {time_slot} {updateData} />
+                <Program bind:programs={filteredPrograms} date={date.format()} {time_slot} />
                 <span />
               </li>
             {/each}
