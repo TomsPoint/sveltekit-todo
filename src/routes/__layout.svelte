@@ -41,7 +41,7 @@
     <slot />
   {/if}
 </main>
-<footer>© LCCL Coding Academy</footer>
+<footer class="p-1">© LCCL Coding Academy</footer>
 
 <style lang="postcss">
   .backdrop {
