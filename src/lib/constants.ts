@@ -11,8 +11,6 @@ export const PROTECTED_ROUTES = [
   '/contacts',
 ]
 export const ROUTES = [
-  { route: '/todos', label: 'Todos' },
-  { route: '/ideas', label: 'Ideas' },
   { route: '/time-slot', label: 'Time Slots' },
   { route: '/projects', label: 'Projects' },
   { route: '/contacts', label: 'Contacts' },
