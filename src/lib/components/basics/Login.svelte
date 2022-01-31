@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { supabase } from "$lib/db";
+  import { supabase } from "$lib/basics/db";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import { ROUTE_HOME } from "$lib/constants";
+  import { ROUTE_HOME } from "$lib/basics/constants";
 
   let loading = false;
   let action = "signIn";

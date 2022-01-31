@@ -1,6 +1,6 @@
 <script lang="ts">
   // @ts-nocheck
-  import { uid } from "$lib/utils";
+  import { uid } from "$lib/basics/utils";
 
   export let id = uid();
   export let label = "";

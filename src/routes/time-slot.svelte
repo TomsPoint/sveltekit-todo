@@ -7,16 +7,16 @@
 </script>
 
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { getContext } from "svelte";
-  import { WEEKDAYS } from "$lib/constants";
+  import { WEEKDAYS } from "$lib/basics/constants";
   import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
   import WeekdayFilter from "$lib/components/filter/WeekdayFilter.svelte";
   import TimeslotFilter from "$lib/components/filter/TimeslotFilter.svelte";
   import AddTimeSlot from "$lib/components/time_slot/AddTimeSlot.svelte";
   import TimeSlot from "$lib/components/time_slot/TimeSlot.svelte";
-  import ReloadButton from "$lib/ui/ReloadButton.svelte";
+  import ReloadButton from "$lib/components/basics/ReloadButton.svelte";
 
   export let time_slots = [];
   const getTimeSlot = async () => (time_slots = await api.time_slot.get());
@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-  <title>Timeslots</title>
+  <title>Time Slots</title>
 </svelte:head>
 
 <section>

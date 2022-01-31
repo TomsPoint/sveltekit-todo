@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { emailObj } from "$lib/objects";
+  import { emailObj } from "$lib/basics/objects";
 
   const initialValue = Object.assign({}, emailObj);
 

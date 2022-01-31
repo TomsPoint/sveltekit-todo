@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { createEventDispatcher, getContext } from "svelte";
-  import { TIMESLOTS, WEEKDAYS } from "$lib/constants";
+  import { TIMESLOTS, WEEKDAYS } from "$lib/basics/constants";
   import Select from "$lib/ui/Select.svelte";
   import Input from "$lib/ui/Input.svelte";
 

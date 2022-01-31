@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Classroom, Program, Teacher, TimeSlot } from "$lib/interface";
+  import type { Classroom, Program, Teacher, TimeSlot } from "$lib/basics/interface";
 
   import * as api from "$lib/api/classrooms";
-  import { MODI } from "$lib/constants";
+  import { MODI } from "$lib/basics/constants";
   import { onMount } from "svelte";
   import { closeModal } from "svelte-modals";
   import Input from "$lib/ui/Input.svelte";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { getContext, onMount } from "svelte";
   import { closeModal } from "svelte-modals";

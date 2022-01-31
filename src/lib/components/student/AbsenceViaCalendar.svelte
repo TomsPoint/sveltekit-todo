@@ -2,12 +2,12 @@
   import * as api from "$lib/api/absence";
 
   import { closeModal } from "svelte-modals";
-  import { DATEFORMAT } from "$lib/constants";
-  import { isDateBetween } from "$lib/utils";
+  import { DATEFORMAT } from "$lib/basics/constants";
+  import { isDateBetween } from "$lib/basics/utils";
   import InputDate from "$lib/ui/InputDate.svelte";
   import dayjs from "dayjs";
   import isBetween from "dayjs/plugin/isBetween";
-  import type { Absence } from "$lib/interface";
+  import type { Absence } from "$lib/basics/interface";
   import Select from "$lib/ui/Select.svelte";
   import { onMount } from "svelte";
 

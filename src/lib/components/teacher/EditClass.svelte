@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as api from "$lib/api/classrooms";
 
-  import { MODI } from "$lib/constants";
+  import { MODI } from "$lib/basics/constants";
   import { closeModal } from "svelte-modals";
   import Input from "$lib/ui/Input.svelte";
   import InputDate from "$lib/ui/InputDate.svelte";

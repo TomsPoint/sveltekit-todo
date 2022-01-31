@@ -1,6 +1,6 @@
 <script lang="ts">
-  import TreeView from "$lib/components/treeview/TreeView.svelte";
-  import TreeEdit from "$lib/components/treeview/TreeEdit.svelte";
+  import TreeView from "$lib/ui/treeview/TreeView.svelte";
+  import TreeEdit from "$lib/ui/treeview/TreeEdit.svelte";
 
   export let item;
   export let items;

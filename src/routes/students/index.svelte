@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   import * as api from "$lib/api/students";
 
   export async function load() {
@@ -7,11 +7,11 @@
 </script>
 
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { page } from "$app/stores";
   import { getContext } from "svelte";
-  import { isDateBetween } from "$lib/utils";
+  import { isDateBetween } from "$lib/basics/utils";
   import Input from "$lib/ui/Input.svelte";
   import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
 
@@ -21,6 +21,7 @@
   const PROGRAMS: Program[] = getContext("programs");
   let filteredPrograms = PROGRAMS;
 
+  // prepare data: filter and enrich
   let data = students.map((person) => {
     return {
       ...person,
@@ -40,6 +41,10 @@
   $: filteredStudents =
     filter.length === 0 ? prefilteredStudents : prefilteredStudents.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
+
+<svelte:head>
+  <title>Students</title>
+</svelte:head>
 
 <section>
   <h1>Students:</h1>

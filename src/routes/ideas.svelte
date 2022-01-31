@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-  import { user } from "$lib/db";
+  import { user } from "$lib/basics/db";
   import AddIdea from "$lib/components/ideas/AddIdea.svelte";
   import Idea from "$lib/components/ideas/Idea.svelte";
 
@@ -28,6 +28,10 @@
     await api.ideas.update(e.detail);
   };
 </script>
+
+<svelte:head>
+  <title>Ideas</title>
+</svelte:head>
 
 <section>
   <h2>Ideas</h2>

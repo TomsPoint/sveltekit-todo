@@ -7,11 +7,11 @@
 </script>
 
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { getContext } from "svelte";
-  import { WEEKLY_STATUS } from "$lib/constants";
-  import { addressObj, emailObj, phoneObj, studentObj, teacherObj } from "$lib/objects";
+  import { WEEKLY_STATUS } from "$lib/basics/constants";
+  import { addressObj, emailObj, phoneObj, studentObj, teacherObj } from "$lib/basics/objects";
 
   import Input from "$lib/ui/Input.svelte";
   import Radio from "$lib/ui/Radio.svelte";
@@ -19,7 +19,7 @@
   import Classrooms from "$lib/components/teacher/Classrooms.svelte";
   import Tabs from "$lib/ui/Tabs.svelte";
   import PersonalInformation from "$lib/components/contacts/PersonalInformation.svelte";
-  import ReloadButton from "$lib/ui/ReloadButton.svelte";
+  import ReloadButton from "$lib/components/basics/ReloadButton.svelte";
 
   export let data;
   let { email = [emailObj], phone = [phoneObj], address = [addressObj], student = studentObj, teacher = teacherObj, ...person } = data;

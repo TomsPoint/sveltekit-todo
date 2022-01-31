@@ -1,4 +1,4 @@
-import { supabase } from '$lib/db'
+import { supabase } from '$lib/basics/db'
 
 export * from '$lib/api/person'
 export * from '$lib/api/students'

@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   import * as api from "$lib/api/time_slots";
 
   export async function load() {
@@ -6,16 +6,15 @@
   }
 </script>
 
-<script>
-  // @ts-nocheck
+<script lang="ts">
   import { getContext } from "svelte";
-  import { WEEKDAYS, DATEFORMAT } from "$lib/constants";
+  import { WEEKDAYS, DATEFORMAT } from "$lib/basics/constants";
   import dayjs from "dayjs";
   import DateSwitcher from "$lib/components/date/DateSwitcher.svelte";
   import Program from "$lib/components/calendar/Program.svelte";
   import ProgramFilter from "$lib/components/filter/ProgramFilter.svelte";
   import WeekdayFilter from "$lib/components/filter/WeekdayFilter.svelte";
-  import ReloadButton from "$lib/ui/ReloadButton.svelte";
+  import ReloadButton from "$lib/components/basics/ReloadButton.svelte";
 
   let filteredWeekdays = WEEKDAYS; // ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   let filteredPrograms = getContext("programs");

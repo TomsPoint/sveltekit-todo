@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   import * as api from "$lib/api/projects";
 
   export async function load() {
@@ -8,7 +8,9 @@
   }
 </script>
 
-<script>
+<script lang="ts">
+  import type { Program } from "$lib/basics/interface";
+
   import { openModal } from "svelte-modals";
   import { getContext } from "svelte";
 
@@ -17,24 +19,28 @@
   import Select from "$lib/ui/Select.svelte";
 
   export let projects = [];
-  $: projects_filtered = !!program ? projects.filter((obj) => obj.program_id === program.id) : projects;
+  $: projects_filtered = !!selectedProgram ? projects.filter((obj) => obj.program_id === selectedProgram.id) : projects;
 
-  const programs = getContext("programs");
-  let program = programs[1];
+  const programs: Program[] = getContext("programs");
+  let selectedProgram: Program = programs[0];
 
-  const addProject = () => openModal(AddProject, { program });
+  const addProject = () => openModal(AddProject, { program: selectedProgram });
   const removeProject = (project) => openModal(RemoveProject, { project });
 </script>
+
+<svelte:head>
+  <title>Projects</title>
+</svelte:head>
 
 <section>
   <h1 class="mb-8">Projects</h1>
 
-  <Select items={programs} bind:selectedItem={program} labelFieldName="name" valueFieldName="id" label="Program" placeholder="Please select a program" />
-  {#if !!program}
+  <Select items={programs} bind:value={selectedProgram} labelFieldName="name" label="Program" placeholder="Please select a program" />
+  {#if !!selectedProgram}
     <button on:click={addProject}>Add Project</button>
 
     <div class="grid grid-cols-4 gap-4">
-      {#each program.level as level, lvl}
+      {#each selectedProgram.level as level, lvl}
         <ul class="data-table col-span-1">
           <li class="table-header">
             <h3>{level}</h3>

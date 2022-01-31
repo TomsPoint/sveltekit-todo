@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { uuid } from "$lib/utils";
+  import { uuid } from "$lib/basics/utils";
   export let readonly = false;
   export let expanded = true;
 

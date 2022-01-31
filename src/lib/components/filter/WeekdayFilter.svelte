@@ -1,5 +1,5 @@
 <script>
-  import { WEEKDAY, WEEKDAYS, WEEKEND } from "$lib/constants";
+  import { WEEKDAY, WEEKDAYS, WEEKEND } from "$lib/basics/constants";
 
   let weekdays = [];
 

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { closeModal } from "svelte-modals";
   import { onMount } from "svelte";
-  import { isDateBetween } from "$lib/utils";
+  import { isDateBetween } from "$lib/basics/utils";
   import InputDate from "$lib/ui/InputDate.svelte";
   import Select from "$lib/ui/Select.svelte";
 
   import * as api from "$lib/api/student_classroom_enrolment";
-  import type { StudentClassroomEnrolment } from "$lib/interface";
+  import type { StudentClassroomEnrolment } from "$lib/basics/interface";
 
   export let date;
 

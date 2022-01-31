@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import * as api from "$lib/api/teachers";
 
   import { page } from "$app/stores";
   import { getContext } from "svelte";
-  import { GENDER } from "$lib/constants";
-  import { back } from "$lib/utils";
-  import { addressObj, emailObj, personObj, phoneObj, teacherObj } from "$lib/objects";
+  import { GENDER } from "$lib/basics/constants";
+  import { back } from "$lib/basics/utils";
+  import { addressObj, emailObj, personObj, phoneObj, teacherObj } from "$lib/basics/objects";
   import Input from "$lib/ui/Input.svelte";
   import Radio from "$lib/ui/Radio.svelte";
   import Select from "$lib/ui/Select.svelte";

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable } from "svelte/store";
   import { browser } from "$app/env";
-  import type { Tabs } from "$lib/interface";
+  import type { Tabs } from "$lib/basics/interface";
 
   export let active;
   export let tabs: Tabs;

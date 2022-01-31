@@ -1,8 +1,8 @@
 <script lang="ts">
   import { getContext } from "svelte";
   import { page } from "$app/stores";
-  import { GENDER } from "$lib/constants";
-  import { back } from "$lib/utils";
+  import { GENDER } from "$lib/basics/constants";
+  import { back } from "$lib/basics/utils";
   import * as api from "$lib/api/teachers";
   import Input from "$lib/ui/Input.svelte";
   import Radio from "$lib/ui/Radio.svelte";
@@ -10,8 +10,8 @@
   import InputPhones from "$lib/ui/InputPhones.svelte";
   import InputEmails from "$lib/ui/InputEmails.svelte";
   import InputAddress from "$lib/ui/InputAddress.svelte";
-  import { addressObj, emailObj, phoneObj, teacherObj } from "$lib/objects";
-  import type { Program } from "$lib/interface";
+  import { addressObj, emailObj, phoneObj, teacherObj } from "$lib/basics/objects";
+  import type { Program } from "$lib/basics/interface";
 
   export let data;
   let { email = [emailObj], phone = [phoneObj], address = [addressObj], teacher = teacherObj, ...person } = data;

@@ -3,7 +3,7 @@
   import dayjs from "dayjs";
   import weekOfYear from "dayjs/plugin/weekOfYear";
   import isoWeek from "dayjs/plugin/isoWeek";
-  import { DATEFORMAT } from "$lib/constants";
+  import { DATEFORMAT } from "$lib/basics/constants";
 
   dayjs.extend(weekOfYear);
   dayjs.extend(isoWeek);

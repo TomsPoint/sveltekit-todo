@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isDateBetween } from "$lib/utils";
+  import { isDateBetween } from "$lib/basics/utils";
   import StudentDetail from "./StudentDetail.svelte";
 
   export let date;

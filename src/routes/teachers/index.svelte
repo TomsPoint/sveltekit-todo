@@ -1,15 +1,13 @@
-<script context="module">
+<script context="module" lang="ts">
   import * as api from "$lib/api/teachers";
 
   export async function load() {
-    return {
-      props: { teachers: await api.teachers.get() },
-    };
+    return { props: { teachers: await api.teachers.get() } };
   }
 </script>
 
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { page } from "$app/stores";
   import { getContext } from "svelte";
@@ -36,6 +34,10 @@
   $: filteredTeachers =
     filter.length === 0 ? prefilteredTeachers : prefilteredTeachers.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
+
+<svelte:head>
+  <title>Teachers</title>
+</svelte:head>
 
 <section>
   <h1>Teachers:</h1>

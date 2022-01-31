@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { phoneObj } from "$lib/objects";
+  import { phoneObj } from "$lib/basics/objects";
 
   const initialValue = Object.assign({}, phoneObj);
 

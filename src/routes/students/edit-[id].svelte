@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   import * as api from "$lib/api/students";
 
   export async function load({ params }) {
@@ -12,7 +12,7 @@
   import ProgramEnrolment from "$lib/components/student/ProgramEnrolment.svelte";
   import ClassroomEnrolment from "$lib/components/student/ClassroomEnrolment.svelte";
   import CampEnrolment from "$lib/components/student/CampEnrolment.svelte";
-  import ReloadButton from "$lib/ui/ReloadButton.svelte";
+  import ReloadButton from "$lib/components/basics/ReloadButton.svelte";
 
   export let data;
 

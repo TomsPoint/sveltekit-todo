@@ -9,13 +9,13 @@
 </script>
 
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { goto } from "$app/navigation";
   import { getContext } from "svelte";
-  import { uuid } from "$lib/utils";
+  import { uuid } from "$lib/basics/utils";
 
-  import Tree from "$lib/components/treeview/Tree.svelte";
+  import Tree from "$lib/ui/treeview/Tree.svelte";
   import Select from "$lib/ui/Select.svelte";
 
   export let project;
@@ -32,6 +32,10 @@
     toggleEditing();
   };
 </script>
+
+<svelte:head>
+  <title>Add Projects</title>
+</svelte:head>
 
 <section>
   <div class="grid grid-cols-2 gap-4">

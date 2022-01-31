@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import type { Person } from "$lib/interface";
+  import type { Person } from "$lib/basics/interface";
 
   import { page } from "$app/stores";
   import Input from "$lib/ui/Input.svelte";
@@ -32,6 +32,10 @@
   $: filteredContacts =
     filter.length === 0 ? prefilteredContact : prefilteredContact.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()));
 </script>
+
+<svelte:head>
+  <title>Contacts</title>
+</svelte:head>
 
 <section>
   <h1>Contacts:</h1>

@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-  import { user } from "$lib/db";
+  import { user } from "$lib/basics/db";
   import AddTodo from "$lib/components/todos/AddTodo.svelte";
   import Todo from "$lib/components/todos/Todo.svelte";
 
@@ -28,6 +28,10 @@
     await api.todos.update(e.detail);
   };
 </script>
+
+<svelte:head>
+  <title>Todos</title>
+</svelte:head>
 
 <section>
   <h2>Todos</h2>

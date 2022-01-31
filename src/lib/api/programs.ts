@@ -1,8 +1,11 @@
-import { supabase } from '$lib/db'
+import { supabase } from '$lib/basics/db'
 
 export const programs = {
   async get() {
-    const { data } = await supabase.from('program').select('*')
+    const { data } = await supabase
+      .from('program')
+      .select('*')
+      .order('sort_order', { ascending: true })
     return data
   },
   async post(payload) {

@@ -2,13 +2,13 @@
   import * as api from "$lib/api/students";
 
   import { page } from "$app/stores";
-  import { GENDER, WEEKLY_STATUS } from "$lib/constants";
-  import { back } from "$lib/utils";
+  import { GENDER, WEEKLY_STATUS } from "$lib/basics/constants";
+  import { back } from "$lib/basics/utils";
   import Input from "$lib/ui/Input.svelte";
   import Radio from "$lib/ui/Radio.svelte";
   import InputPhones from "$lib/ui/InputPhones.svelte";
   import InputEmails from "$lib/ui/InputEmails.svelte";
-  import { emailObj, personObj, phoneObj, studentObj } from "$lib/objects";
+  import { emailObj, personObj, phoneObj, studentObj } from "$lib/basics/objects";
 
   let person = personObj;
   let email = [emailObj];

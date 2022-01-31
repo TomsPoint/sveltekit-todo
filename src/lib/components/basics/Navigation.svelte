@@ -1,8 +1,8 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import { ROUTES, PROTECTED_ROUTES } from "$lib/constants";
-  import { supabase, user } from "$lib/db";
+  import { ROUTES, PROTECTED_ROUTES } from "$lib/basics/constants";
+  import { supabase, user } from "$lib/basics/db";
 
   const signOut = async () => {
     await supabase.auth.signOut();

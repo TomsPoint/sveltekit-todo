@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { uid } from "$lib/utils";
+  import { uid } from "$lib/basics/utils";
 
   import dayjs from "dayjs";
 

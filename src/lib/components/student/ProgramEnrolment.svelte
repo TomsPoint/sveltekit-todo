@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Program, Student } from "$lib/interface";
+  import type { Program, Student } from "$lib/basics/interface";
 
   import { getContext } from "svelte";
   import { openModal } from "svelte-modals";
-  import { DATEFORMAT } from "$lib/constants";
+  import { DATEFORMAT } from "$lib/basics/constants";
   import * as api from "$lib/api/student_weekly_enrolment";
   import dayjs from "dayjs";
   import EditEnrolment from "./EditWeeklyEnrolment.svelte";

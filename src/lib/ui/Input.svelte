@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { uid, toSlug } from "$lib/utils";
+  import { uid, toSlug } from "$lib/basics/utils";
 
   export let id = uid();
   export let placeholder = "";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { addressObj } from "$lib/objects";
+  import { addressObj } from "$lib/basics/objects";
 
   const initialValue = Object.assign({}, addressObj);
 

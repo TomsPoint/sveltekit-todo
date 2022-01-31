@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Program } from "$lib/interface";
+  import type { Program } from "$lib/basics/interface";
 
   import { getContext } from "svelte";
-  import { DATEFORMAT, WEEKDAYS } from "$lib/constants";
+  import { DATEFORMAT, WEEKDAYS } from "$lib/basics/constants";
   import { openModal } from "svelte-modals";
   import * as api from "$lib/api/classrooms";
   import dayjs from "dayjs";
